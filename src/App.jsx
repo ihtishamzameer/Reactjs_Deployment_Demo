@@ -1,25 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { login } from './features/auth/authSlice'
 
 function App() {
-  const [message, setMessage] = useState('Loading...')
+  const dispatch = useDispatch()
+  const { user, status, error } = useSelector((state) => state.auth)
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ Username: 'test@test.com', Password: 'test123' })
-    })
-      .then(res => res.json())
-      .then(data => setMessage(JSON.stringify(data)))
-      .catch(err => setMessage('Error: ' + err.message))
-  }, [])
+    dispatch(login({ username: 'test@test.com', password: 'test123' }))
+  }, [dispatch])
 
-  return (
-    <>
-      <div>{message}</div>
-      <Analytics />
-    </>
-  )
+  if (status === 'loading') return <div>Loading...</div>
+  if (status === 'failed') return <div>Error: {error}</div>
+
+  return <div>{user ? JSON.stringify(user) : 'No user yet'}</div>
 }
 
 export default App
