@@ -14,7 +14,12 @@ function App() {
       .catch(err => setMessage('Error: ' + err.message))
   }, [])
 
-  return <div>{message}</div>
+  return (
+    <>
+      <div>{message}</div>
+      <Analytics />
+    </>
+  )
 }
 
 export default App
