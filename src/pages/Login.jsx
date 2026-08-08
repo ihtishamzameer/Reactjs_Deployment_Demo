@@ -343,7 +343,6 @@ function Login() {
   }
 
   const handleSubmit = (e) => {
-    console.log('submit fired')
     e.preventDefault()
     dispatch(login({ ...form, rememberMe }))
   }

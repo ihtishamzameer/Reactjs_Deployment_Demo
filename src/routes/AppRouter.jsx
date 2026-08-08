@@ -12,10 +12,10 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: 'login', element: <Login /> },
-      { path: 'register', element: <Register /> },
       { path: '*', element: <NotFound /> },
-    ],
-  },
+    { path: 'register', element: <Register /> }
+    ]
+  }
 ])
 
 function AppRouter() {
