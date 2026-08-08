@@ -1,87 +1,70 @@
+// src/pages/Home.jsx
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import { Link } from 'react-router-dom'
+import StatCard from '../Components/dashboard/StatCard'
+import ProjectActivity from '../Components/dashboard/ProjectActivity'
+import RecentProjects from '../Components/dashboard/RecentProjects'
+import UpcomingTasks from '../Components/dashboard/UpcomingTasks'
+import ProjectProgress from '../Components/dashboard/ProjectProgress'
+import QuickActions from '../Components/dashboard/QuickActions'
+import { statCards } from '../data/dashboardData'
 import { Button } from '../styles/shared'
+import { Link } from 'react-router-dom'
 
-const fadeIn = keyframes`
-  from { opacity: 0; transform: translateY(20px); }
+const fadeUp = keyframes`
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 `
 
-const PageWrapper = styled.div`
+const Page = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing(8)};
-  padding-bottom: ${({ theme }) => theme.spacing(6)};
-  animation: ${fadeIn} 0.6s ease-out forwards;
+  gap: 24px;
+  animation: ${fadeUp} 0.4s ease-out;
 `
 
-const HeroSection = styled.section`
+const PageHeader = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-top: ${({ theme }) => theme.spacing(6)};
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
 `
 
-const HeroBadge = styled.div`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: ${({ theme }) => theme.colors.surface};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  color: ${({ theme }) => theme.colors.primary};
-  padding: 6px 16px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: ${({ theme }) => theme.spacing(3)};
-  letter-spacing: 0.5px;
-`
+const HeadingGroup = styled.div``
 
-const HeroTitle = styled.h1`
-  font-size: 4rem;
+const PageTitle = styled.h1`
+  font-size: 2.25rem;
   font-weight: 800;
-  margin: 0 0 ${({ theme }) => theme.spacing(2)};
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  letter-spacing: -0.03em;
   color: ${({ theme }) => theme.colors.text};
-  
+  margin: 0 0 4px;
+
   span {
     color: ${({ theme }) => theme.colors.primary};
   }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: 2.75rem;
-  }
 `
 
-const HeroSubtitle = styled.p`
-  font-size: 1.25rem;
+const PageSubtitle = styled.p`
+  font-size: 0.9rem;
   color: ${({ theme }) => theme.colors.textMuted};
-  max-width: 600px;
-  margin: 0 0 ${({ theme }) => theme.spacing(5)};
-  line-height: 1.6;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: 1.1rem;
-  }
+  margin: 0;
 `
 
-const HeroActions = styled.div`
+const HeaderActions = styled.div`
   display: flex;
-  gap: ${({ theme }) => theme.spacing(2)};
-  
+  gap: 10px;
+  flex-shrink: 0;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    flex-direction: column;
     width: 100%;
   }
 `
 
-const StatsGrid = styled.section`
+const StatsRow = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: ${({ theme }) => theme.spacing(3)};
+  gap: 16px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
     grid-template-columns: repeat(2, 1fr);
@@ -92,155 +75,76 @@ const StatsGrid = styled.section`
   }
 `
 
-const StatCard = styled.div`
-  background: ${({ theme }) => theme.colors.surface};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  padding: ${({ theme }) => theme.spacing(3)};
+const MainGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    grid-template-columns: 1fr;
+  }
+`
+
+const LeftCol = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing(2)};
-  transition: ${({ theme }) => theme.transitions.default};
+  gap: 20px;
+  min-width: 0;
+`
 
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.primary};
-    transform: translateY(-2px);
+const RightCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    grid-template-columns: 1fr;
   }
 `
-
-const StatHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: ${({ theme }) => theme.colors.textMuted};
-  font-size: 0.9rem;
-  font-weight: 500;
-`
-
-const StatIcon = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: rgba(99, 102, 241, 0.1);
-  color: ${({ theme }) => theme.colors.primary};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    width: 20px;
-    height: 20px;
-  }
-`
-
-const StatValue = styled.div`
-  font-size: 2.25rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.colors.text};
-`
-
-const StatTrend = styled.div`
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: ${({ $positive, theme }) => ($positive ? theme.colors.success : theme.colors.error)};
-  display: flex;
-  align-items: center;
-  gap: 4px;
-
-  span {
-    color: ${({ theme }) => theme.colors.textMuted};
-    font-weight: 400;
-  }
-`
-
-// Icons
-const FolderIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-  </svg>
-)
-
-const ActivityIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-  </svg>
-)
-
-const CheckIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-  </svg>
-)
-
-const UsersIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-    <circle cx="9" cy="7" r="4"></circle>
-    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-  </svg>
-)
 
 function Home() {
   return (
-    <PageWrapper>
-      <HeroSection>
-        <HeroBadge>SaaS Dashboard Preview</HeroBadge>
-        <HeroTitle>
-          Welcome to <span>MyApp</span>
-        </HeroTitle>
-        <HeroSubtitle>
-          Manage your account and access your application from one place. Professional, clean, and blazingly fast.
-        </HeroSubtitle>
-        <HeroActions>
-          <Link to="/register" style={{ textDecoration: 'none' }}>
-            <Button>Get Started</Button>
+    <Page>
+      <PageHeader>
+        <HeadingGroup>
+          <PageTitle>Dashboard<span>.</span></PageTitle>
+          <PageSubtitle>Plan, prioritize, and accomplish your work with ease.</PageSubtitle>
+        </HeadingGroup>
+        <HeaderActions>
+          <Link to="/projects" style={{ textDecoration: 'none' }}>
+            <Button>+ Add Project</Button>
           </Link>
-          <Link to="/login" style={{ textDecoration: 'none' }}>
-            <Button $variant="secondary">Sign In</Button>
+          <Link to="/tasks" style={{ textDecoration: 'none' }}>
+            <Button $variant="secondary">Import Data</Button>
           </Link>
-        </HeroActions>
-      </HeroSection>
+        </HeaderActions>
+      </PageHeader>
 
-      <StatsGrid>
-        <StatCard>
-          <StatHeader>
-            Total Projects
-            <StatIcon><FolderIcon /></StatIcon>
-          </StatHeader>
-          <StatValue>24</StatValue>
-          <StatTrend $positive>↑ 12% <span>vs last month</span></StatTrend>
-        </StatCard>
+      <StatsRow>
+        {statCards.map((card, i) => (
+          <StatCard key={card.id} {...card} featured={i === 0} />
+        ))}
+      </StatsRow>
 
-        <StatCard>
-          <StatHeader>
-            Active Tasks
-            <StatIcon><ActivityIcon /></StatIcon>
-          </StatHeader>
-          <StatValue>142</StatValue>
-          <StatTrend $positive>↑ 8% <span>vs last month</span></StatTrend>
-        </StatCard>
+      <MainGrid>
+        <LeftCol>
+          <ProjectActivity />
+          <RecentProjects />
+        </LeftCol>
+        <RightCol>
+          <UpcomingTasks />
+          <ProjectProgress />
+        </RightCol>
+      </MainGrid>
 
-        <StatCard>
-          <StatHeader>
-            Completion Rate
-            <StatIcon><CheckIcon /></StatIcon>
-          </StatHeader>
-          <StatValue>86%</StatValue>
-          <StatTrend $positive>↑ 2.4% <span>vs last month</span></StatTrend>
-        </StatCard>
-
-        <StatCard>
-          <StatHeader>
-            Team Members
-            <StatIcon><UsersIcon /></StatIcon>
-          </StatHeader>
-          <StatValue>8</StatValue>
-          <StatTrend $positive={false}>— 0% <span>vs last month</span></StatTrend>
-        </StatCard>
-      </StatsGrid>
-    </PageWrapper>
+      <QuickActions />
+    </Page>
   )
 }
 

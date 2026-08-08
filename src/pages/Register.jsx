@@ -10,7 +10,8 @@ const Page = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 64px);
+  min-height: 100vh;
+  background: ${({ theme }) => theme.colors.background};
   padding: ${({ theme }) => theme.spacing(4)};
 `
 

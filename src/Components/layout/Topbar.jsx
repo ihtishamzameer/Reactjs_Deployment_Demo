@@ -1,202 +1,259 @@
 // src/Components/layout/Topbar.jsx
-import { useState, useEffect } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { useSelector, useDispatch } from 'react-redux'
-import { logoutUserThunk } from '../../features/auth/authSlice'
-import { Button, Spinner } from '../../styles/shared'
+import { useThemeMode } from '../../styles/ThemeContext'
 
-const Nav = styled.nav`
+// ─── Styled Components ───────────────────────────────────────────────────────
+
+const TopbarWrapper = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(4)};
+  padding: 0 24px;
+  height: 64px;
   background: ${({ theme }) => theme.colors.surface};
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  height: 64px;
+  flex-shrink: 0;
+  gap: 16px;
+  z-index: 50;
 `
 
-const Logo = styled(Link)`
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.colors.text};
-  letter-spacing: -0.02em;
+const LeftArea = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  flex: 1;
+`
 
-  svg {
+const MenuBtn = styled.button`
+  display: none;
+  background: none;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  color: ${({ theme }) => theme.colors.textMuted};
+  cursor: pointer;
+  padding: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  transition: all 0.15s;
+  flex-shrink: 0;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.primaryLight};
     color: ${({ theme }) => theme.colors.primary};
+    border-color: ${({ theme }) => theme.colors.primary};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `
 
-const DesktopNav = styled.div`
+const SearchBox = styled.div`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing(4)};
+  gap: 8px;
+  background: ${({ theme }) => theme.colors.background};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  padding: 8px 14px;
+  max-width: 360px;
+  width: 100%;
+  transition: border-color 0.15s, box-shadow 0.15s;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  &:focus-within {
+    border-color: ${({ theme }) => theme.colors.primary};
+    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primaryLight};
+  }
+
+  svg {
+    width: 15px;
+    height: 15px;
+    color: ${({ theme }) => theme.colors.textMuted};
+    flex-shrink: 0;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     display: none;
   }
 `
 
-const NavLinks = styled.div`
+const SearchInput = styled.input`
+  border: none;
+  background: transparent;
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 0.875rem;
+  outline: none;
+  width: 100%;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.textMuted};
+  }
+`
+
+const RightArea = styled.div`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing(3)};
+  gap: 6px;
 `
 
-const StyledLink = styled(Link)`
-  color: ${({ $active, theme }) => ($active ? theme.colors.text : theme.colors.textMuted)};
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: color ${({ theme }) => theme.transitions.default};
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.text};
-  }
-`
-
-const MobileMenuBtn = styled.button`
-  display: none;
-  background: none;
-  border: none;
+const IconBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  background: ${({ theme }) => theme.colors.background};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   color: ${({ theme }) => theme.colors.textMuted};
   cursor: pointer;
-  padding: 4px;
+  transition: all 0.15s ease;
+  position: relative;
+
+  svg { width: 17px; height: 17px; }
 
   &:hover {
-    color: ${({ theme }) => theme.colors.text};
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: block;
+    background: ${({ theme }) => theme.colors.primaryLight};
+    color: ${({ theme }) => theme.colors.primary};
+    border-color: ${({ theme }) => theme.colors.primary};
   }
 `
 
-const MobileNav = styled.div`
-  display: flex;
-  flex-direction: column;
+const NotifDot = styled.span`
   position: absolute;
-  top: 64px;
-  left: 0;
-  right: 0;
-  background: ${({ theme }) => theme.colors.surface};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  padding: ${({ theme }) => theme.spacing(3)} ${({ theme }) => theme.spacing(4)};
-  gap: ${({ theme }) => theme.spacing(3)};
-  box-shadow: ${({ theme }) => theme.shadows.md};
-  transform-origin: top;
-  animation: slideDown 0.2s ease-out;
+  top: 5px;
+  right: 5px;
+  width: 8px;
+  height: 8px;
+  background: ${({ theme }) => theme.colors.error};
+  border: 2px solid ${({ theme }) => theme.colors.surface};
+  border-radius: 50%;
+`
 
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+const UserChip = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  cursor: pointer;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  transition: background 0.15s;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.surfaceHover};
   }
 `
 
-function Topbar() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const { isAuthenticated, status } = useSelector((state) => state.auth)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const location = useLocation()
+const Avatar = styled.div`
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: white;
+  flex-shrink: 0;
+`
 
-  const closeMenu = () => setMenuOpen(false)
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    closeMenu()
-  }, [location.pathname])
-
-  const handleLogout = async () => {
-    const resultAction = await dispatch(logoutUserThunk())
-    if (logoutUserThunk.fulfilled.match(resultAction)) {
-      navigate('/login', { replace: true })
-    }
+const UserText = styled.div`
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    display: none;
   }
+`
 
-  const isLoggingOut = status === 'loading'
+const UserName = styled.div`
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text};
+  line-height: 1.2;
+`
 
-  const NavItems = () => (
-    <>
-      <StyledLink to="/" $active={location.pathname === '/'}>
-        Home
-      </StyledLink>
-      <StyledLink to="/dashboard" $active={location.pathname === '/dashboard'}>
-        Dashboard
-      </StyledLink>
-    </>
-  )
+const UserRole = styled.div`
+  font-size: 0.72rem;
+  color: ${({ theme }) => theme.colors.textMuted};
+`
 
-  const AuthItems = () => {
-    if (isAuthenticated) {
-      return (
-        <Button 
-          $variant="secondary" 
-          onClick={handleLogout} 
-          disabled={isLoggingOut}
-          style={{ padding: '8px 16px' }}
-        >
-          {isLoggingOut ? <Spinner size="16px" /> : 'Logout'}
-        </Button>
-      )
-    }
+// ─── Icons ───────────────────────────────────────────────────────────────────
 
-    return (
-      <>
-        <StyledLink to="/login">Sign In</StyledLink>
-        <Link to="/register" style={{ textDecoration: 'none' }}>
-          <Button style={{ padding: '8px 16px' }}>Sign Up</Button>
-        </Link>
-      </>
-    )
-  }
+const MenuIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" />
+  </svg>
+)
+
+const SearchIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+    <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+  </svg>
+)
+
+const BellIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+  </svg>
+)
+
+const SunIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+    <circle cx="12" cy="12" r="5" />
+    <line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" />
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+    <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+  </svg>
+)
+
+const MoonIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+  </svg>
+)
+
+// ─── Component ───────────────────────────────────────────────────────────────
+
+function Topbar({ onMenuToggle }) {
+  const { isAuthenticated } = useSelector(state => state.auth)
+  const { mode, toggleTheme } = useThemeMode()
 
   return (
-    <Nav>
-      <Logo to="/">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-        </svg>
-        MyApp
-      </Logo>
+    <TopbarWrapper>
+      <LeftArea>
+        <MenuBtn onClick={onMenuToggle} title="Toggle navigation">
+          <MenuIcon />
+        </MenuBtn>
+        <SearchBox>
+          <SearchIcon />
+          <SearchInput placeholder="Search tasks, projects..." />
+        </SearchBox>
+      </LeftArea>
 
-      <DesktopNav>
-        <NavLinks>
-          <NavItems />
-        </NavLinks>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginLeft: '16px', paddingLeft: '16px', borderLeft: '1px solid #27272a' }}>
-          <AuthItems />
-        </div>
-      </DesktopNav>
+      <RightArea>
+        <IconBtn onClick={toggleTheme} title={`Switch to ${mode === 'dark' ? 'light' : 'dark'} mode`}>
+          {mode === 'dark' ? <SunIcon /> : <MoonIcon />}
+        </IconBtn>
 
-      <MobileMenuBtn onClick={() => setMenuOpen(!menuOpen)}>
-        {menuOpen ? (
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M18 6L6 18M6 6l12 12" />
-          </svg>
-        ) : (
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M3 12h18M3 6h18M3 18h18" />
-          </svg>
-        )}
-      </MobileMenuBtn>
+        <IconBtn title="Notifications">
+          <BellIcon />
+          <NotifDot />
+        </IconBtn>
 
-      {menuOpen && (
-        <MobileNav>
-          <NavItems />
-          <hr style={{ border: 'none', borderTop: '1px solid #27272a', margin: '8px 0' }} />
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <AuthItems />
-          </div>
-        </MobileNav>
-      )}
-    </Nav>
+        <UserChip>
+          <Avatar>D</Avatar>
+          <UserText>
+            <UserName>{isAuthenticated ? 'Developer' : 'Guest'}</UserName>
+            <UserRole>Full Stack Dev</UserRole>
+          </UserText>
+        </UserChip>
+      </RightArea>
+    </TopbarWrapper>
   )
 }
 
-export default Topbar
+export default Topbar
