@@ -1,19 +1,13 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
+import { Link } from 'react-router-dom'
+import { Button } from '../styles/shared'
 
-// === Animations ===
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 `
 
-const pulseGlow = keyframes`
-  0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
-`
-
-// === Styled Components ===
 const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -22,29 +16,27 @@ const PageWrapper = styled.div`
   animation: ${fadeIn} 0.6s ease-out forwards;
 `
 
-// Hero Section
 const HeroSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-top: ${({ theme }) => theme.spacing(4)};
+  margin-top: ${({ theme }) => theme.spacing(6)};
 `
 
 const HeroBadge = styled.div`
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(79, 70, 229, 0.1);
-  border: 1px solid rgba(79, 70, 229, 0.2);
-  color: #818cf8;
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  color: ${({ theme }) => theme.colors.primary};
   padding: 6px 16px;
   border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: ${({ theme }) => theme.spacing(3)};
   letter-spacing: 0.5px;
-  text-transform: uppercase;
 `
 
 const HeroTitle = styled.h1`
@@ -56,10 +48,7 @@ const HeroTitle = styled.h1`
   color: ${({ theme }) => theme.colors.text};
   
   span {
-    background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: ${({ theme }) => theme.colors.primary};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -69,7 +58,7 @@ const HeroTitle = styled.h1`
 
 const HeroSubtitle = styled.p`
   font-size: 1.25rem;
-  color: #9ca3af;
+  color: ${({ theme }) => theme.colors.textMuted};
   max-width: 600px;
   margin: 0 0 ${({ theme }) => theme.spacing(5)};
   line-height: 1.6;
@@ -89,51 +78,6 @@ const HeroActions = styled.div`
   }
 `
 
-const PrimaryButton = styled.button`
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-  color: #fff;
-  border: none;
-  padding: 14px 32px;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  animation: ${pulseGlow} 2s infinite;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4);
-    animation: none;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 100%;
-  }
-`
-
-const SecondaryButton = styled.button`
-  background: rgba(255, 255, 255, 0.05);
-  color: ${({ theme }) => theme.colors.text};
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 14px 32px;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 100%;
-  }
-`
-
-// Stats Section
 const StatsGrid = styled.section`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -149,38 +93,18 @@ const StatsGrid = styled.section`
 `
 
 const StatCard = styled.div`
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   padding: ${({ theme }) => theme.spacing(3)};
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(2)};
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, ${({ $color }) => $color || '#4f46e5'}, transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
+  transition: ${({ theme }) => theme.transitions.default};
 
   &:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
-
-    &::before {
-      opacity: 1;
-    }
+    border-color: ${({ theme }) => theme.colors.primary};
+    transform: translateY(-2px);
   }
 `
 
@@ -188,7 +112,7 @@ const StatHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #9ca3af;
+  color: ${({ theme }) => theme.colors.textMuted};
   font-size: 0.9rem;
   font-weight: 500;
 `
@@ -196,9 +120,9 @@ const StatHeader = styled.div`
 const StatIcon = styled.div`
   width: 40px;
   height: 40px;
-  border-radius: 12px;
-  background: ${({ $bg }) => $bg || 'rgba(79, 70, 229, 0.1)'};
-  color: ${({ $color }) => $color || '#818cf8'};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  background: rgba(99, 102, 241, 0.1);
+  color: ${({ theme }) => theme.colors.primary};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -218,111 +142,18 @@ const StatValue = styled.div`
 const StatTrend = styled.div`
   font-size: 0.85rem;
   font-weight: 500;
-  color: ${({ $positive }) => ($positive ? '#34d399' : '#f87171')};
+  color: ${({ $positive, theme }) => ($positive ? theme.colors.success : theme.colors.error)};
   display: flex;
   align-items: center;
   gap: 4px;
 
   span {
-    color: #6b7280;
+    color: ${({ theme }) => theme.colors.textMuted};
     font-weight: 400;
   }
 `
 
-// Dashboard Preview / Activity Section
-const DashboardPreview = styled.section`
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 24px;
-  padding: ${({ theme }) => theme.spacing(4)};
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing(3)};
-  box-shadow: inset 0 2px 20px rgba(255, 255, 255, 0.02);
-`
-
-const PreviewHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: ${({ theme }) => theme.spacing(2)};
-  margin-bottom: ${({ theme }) => theme.spacing(1)};
-
-  h3 {
-    margin: 0;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: ${({ theme }) => theme.colors.text};
-  }
-
-  button {
-    background: none;
-    border: none;
-    color: #818cf8;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-`
-
-const ActivityList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing(2)};
-`
-
-const ActivityItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing(2)};
-  padding: ${({ theme }) => theme.spacing(1.5)};
-  border-radius: 12px;
-  transition: background 0.2s;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.03);
-  }
-`
-
-const Avatar = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, ${({ $from }) => $from}, ${({ $to }) => $to});
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: #fff;
-  flex-shrink: 0;
-`
-
-const ActivityContent = styled.div`
-  flex: 1;
-
-  p {
-    margin: 0 0 4px 0;
-    font-size: 0.95rem;
-    color: ${({ theme }) => theme.colors.text};
-
-    strong {
-      color: #e5e7eb;
-    }
-  }
-
-  span {
-    font-size: 0.8rem;
-    color: #6b7280;
-  }
-`
-
-// === Icons ===
+// Icons
 const FolderIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
@@ -351,112 +182,64 @@ const UsersIcon = () => (
   </svg>
 )
 
-// === Main Component ===
 function Home() {
   return (
     <PageWrapper>
-      {/* Hero Section */}
       <HeroSection>
-        <HeroBadge>✨ Dashboard Preview v2.0</HeroBadge>
+        <HeroBadge>SaaS Dashboard Preview</HeroBadge>
         <HeroTitle>
           Welcome to <span>MyApp</span>
         </HeroTitle>
         <HeroSubtitle>
-          Everything you need, organized in one simple workspace. Plan, track, and collaborate on your projects with unmatched elegance and speed.
+          Manage your account and access your application from one place. Professional, clean, and blazingly fast.
         </HeroSubtitle>
         <HeroActions>
-          <PrimaryButton>Get Started Now</PrimaryButton>
-          <SecondaryButton>View Documentation</SecondaryButton>
+          <Link to="/register" style={{ textDecoration: 'none' }}>
+            <Button>Get Started</Button>
+          </Link>
+          <Link to="/login" style={{ textDecoration: 'none' }}>
+            <Button $variant="secondary">Sign In</Button>
+          </Link>
         </HeroActions>
       </HeroSection>
 
-      {/* Stats Grid */}
       <StatsGrid>
-        <StatCard $color="#818cf8">
+        <StatCard>
           <StatHeader>
             Total Projects
-            <StatIcon $bg="rgba(99, 102, 241, 0.1)" $color="#818cf8">
-              <FolderIcon />
-            </StatIcon>
+            <StatIcon><FolderIcon /></StatIcon>
           </StatHeader>
           <StatValue>24</StatValue>
-          <StatTrend $positive>
-            ↑ 12% <span>vs last month</span>
-          </StatTrend>
+          <StatTrend $positive>↑ 12% <span>vs last month</span></StatTrend>
         </StatCard>
 
-        <StatCard $color="#fbbf24">
+        <StatCard>
           <StatHeader>
             Active Tasks
-            <StatIcon $bg="rgba(245, 158, 11, 0.1)" $color="#fbbf24">
-              <ActivityIcon />
-            </StatIcon>
+            <StatIcon><ActivityIcon /></StatIcon>
           </StatHeader>
           <StatValue>142</StatValue>
-          <StatTrend $positive>
-            ↑ 8% <span>vs last month</span>
-          </StatTrend>
+          <StatTrend $positive>↑ 8% <span>vs last month</span></StatTrend>
         </StatCard>
 
-        <StatCard $color="#34d399">
+        <StatCard>
           <StatHeader>
             Completion Rate
-            <StatIcon $bg="rgba(16, 185, 129, 0.1)" $color="#34d399">
-              <CheckIcon />
-            </StatIcon>
+            <StatIcon><CheckIcon /></StatIcon>
           </StatHeader>
           <StatValue>86%</StatValue>
-          <StatTrend $positive>
-            ↑ 2.4% <span>vs last month</span>
-          </StatTrend>
+          <StatTrend $positive>↑ 2.4% <span>vs last month</span></StatTrend>
         </StatCard>
 
-        <StatCard $color="#f472b6">
+        <StatCard>
           <StatHeader>
             Team Members
-            <StatIcon $bg="rgba(236, 72, 153, 0.1)" $color="#f472b6">
-              <UsersIcon />
-            </StatIcon>
+            <StatIcon><UsersIcon /></StatIcon>
           </StatHeader>
           <StatValue>8</StatValue>
-          <StatTrend $positive={false}>
-            — 0% <span>vs last month</span>
-          </StatTrend>
+          <StatTrend $positive={false}>— 0% <span>vs last month</span></StatTrend>
         </StatCard>
       </StatsGrid>
-
-      {/* Recent Activity Dashboard Preview */}
-      <DashboardPreview>
-        <PreviewHeader>
-          <h3>Recent Activity</h3>
-          <button>View all activity</button>
-        </PreviewHeader>
-        <ActivityList>
-          <ActivityItem>
-            <Avatar $from="#4f46e5" $to="#7c3aed">JD</Avatar>
-            <ActivityContent>
-              <p><strong>Jane Doe</strong> completed the task <strong>"Design System Updates"</strong></p>
-              <span>2 hours ago • Project Alpha</span>
-            </ActivityContent>
-          </ActivityItem>
-          
-          <ActivityItem>
-            <Avatar $from="#10b981" $to="#3b82f6">MK</Avatar>
-            <ActivityContent>
-              <p><strong>Mike Smith</strong> uploaded a new file <strong>"Q3_Report.pdf"</strong></p>
-              <span>4 hours ago • Finance Team</span>
-            </ActivityContent>
-          </ActivityItem>
-
-          <ActivityItem>
-            <Avatar $from="#f59e0b" $to="#ef4444">AS</Avatar>
-            <ActivityContent>
-              <p><strong>Alex Santos</strong> left a comment on <strong>"Marketing Campaign"</strong></p>
-              <span>Yesterday at 4:30 PM • Marketing</span>
-            </ActivityContent>
-          </ActivityItem>
-        </ActivityList>
-      </DashboardPreview>
     </PageWrapper>
   )
 }
