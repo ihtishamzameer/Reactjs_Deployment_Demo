@@ -1,287 +1,96 @@
 // pages/Register.jsx
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { register } from '../features/auth/authSlice'
+import { Button, Input, Label, FormGroup, Card, ErrorMessage, Spinner } from '../styles/shared'
 
 const Page = styled.div`
-  position: fixed;
-  inset: 64px 0 0 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: ${({ theme }) => theme.spacing(3)};
-  background: linear-gradient(135deg, #6a5ce6 0%, #9265e0 50%, #c565c9 100%);
-  padding: ${({ theme }) => theme.spacing(3)};
-  overflow-y: auto;
-  z-index: 0;
+  min-height: calc(100vh - 64px);
+  padding: ${({ theme }) => theme.spacing(4)};
 `
 
-const Card = styled.div`
-  display: flex;
+const AuthContainer = styled(Card)`
   width: 100%;
-  max-width: 900px;
-  min-height: 540px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    flex-direction: column;
-    max-width: 420px;
-    min-height: auto;
-  }
-`
-
-const WelcomePanel = styled.div`
-  position: relative;
-  flex: 1.1;
-  background: linear-gradient(160deg, #6a5ce6 0%, #8c5fdd 45%, #c565c9 100%);
-  padding: ${({ theme }) => theme.spacing(6)} ${({ theme }) => theme.spacing(5)};
+  max-width: 400px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    min-height: 240px;
-    padding: ${({ theme }) => theme.spacing(4)};
-  }
+  gap: ${({ theme }) => theme.spacing(3)};
 `
 
-const Glow = styled.span`
-  position: absolute;
-  top: -60px;
-  right: -40px;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #fb923c 0%, #ec4899 60%, transparent 75%);
-  opacity: 0.75;
-`
-
-const Comet = styled.span`
-  position: absolute;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #fb923c, #f472b6);
-`
-
-const CometTail = styled.span`
-  position: absolute;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, transparent, #fb923c);
-`
-
-const WelcomeTitle = styled.h1`
-  position: relative;
-  z-index: 1;
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 ${({ theme }) => theme.spacing(2)};
-  line-height: 1.15;
-`
-
-const WelcomeText = styled.p`
-  position: relative;
-  z-index: 1;
-  font-size: 0.95rem;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.85);
-  max-width: 300px;
-  margin: 0;
-`
-
-const FormPanel = styled.div`
-  flex: 1;
-  background: #ffffff;
-  padding: ${({ theme }) => theme.spacing(5)};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: ${({ theme }) => theme.spacing(4)};
-  }
-`
-
-const FormTitle = styled.h2`
+const Header = styled.div`
   text-align: center;
-  font-size: 1.2rem;
+  margin-bottom: ${({ theme }) => theme.spacing(2)};
+`
+
+const Title = styled.h2`
+  font-size: 1.5rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #6a5ce6;
-  margin: 0 0 ${({ theme }) => theme.spacing(4)};
+  color: ${({ theme }) => theme.colors.text};
+  margin-bottom: ${({ theme }) => theme.spacing(1)};
+`
+
+const Subtitle = styled.p`
+  font-size: 0.9rem;
+  color: ${({ theme }) => theme.colors.textMuted};
 `
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing(2)};
 `
 
-const Field = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing(1.5)};
-  background: #e9e6f9;
-  border-radius: 999px;
-  padding: 0.75rem 1.2rem;
-  transition: box-shadow 0.15s ease;
-
-  &:focus-within {
-    box-shadow: 0 0 0 2px #b8a8f0;
-  }
-`
-
-const IconWrap = styled.span`
-  display: flex;
-  align-items: center;
-  color: #8b7bd8;
-  flex-shrink: 0;
-`
-
-const Input = styled.input`
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: #3a3255;
-  font-size: 0.9rem;
-
-  &::placeholder {
-    color: #a79bd1;
-  }
-
-  &:focus {
-    outline: none;
-  }
-`
-
-const HelperRow = styled.div`
-  font-size: 0.78rem;
-  color: #9a92ab;
-  padding: 0 0.3rem;
-`
-
-const SubmitButton = styled.button`
-  margin-top: ${({ theme }) => theme.spacing(1.5)};
-  padding: 0.85rem;
-  background: linear-gradient(90deg, #ec4899, #8b5cf6);
-  color: #fff;
-  border: none;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  transition: opacity 0.15s ease, transform 0.1s ease;
-
-  &:hover:not(:disabled) {
-    opacity: 0.9;
-  }
-
-  &:active:not(:disabled) {
-    transform: scale(0.99);
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-`
-
-const ErrorBanner = styled.div`
-  margin-top: ${({ theme }) => theme.spacing(2)};
-  padding: 0.6rem 0.85rem;
-  background: #fee2e2;
-  border-radius: 999px;
-  color: #b91c1c;
-  font-size: 0.78rem;
-  text-align: center;
-`
-
-const SuccessBanner = styled.div`
-  margin-top: ${({ theme }) => theme.spacing(2)};
-  padding: 0.6rem 0.85rem;
-  background: #dcfce7;
-  border-radius: 12px;
-  color: #15803d;
-  font-size: 0.78rem;
-  text-align: center;
-  word-break: break-word;
-`
-
-const SwitchText = styled.p`
-  margin-top: ${({ theme }) => theme.spacing(3)};
+const HelperText = styled.p`
   font-size: 0.8rem;
-  color: #8a8298;
+  color: ${({ theme }) => theme.colors.textMuted};
+  margin-top: 4px;
+`
+
+const FooterText = styled.p`
   text-align: center;
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.textMuted};
+  margin-top: ${({ theme }) => theme.spacing(4)};
 
   a {
-    color: #6a5ce6;
-    font-weight: 600;
+    color: ${({ theme }) => theme.colors.primary};
+    font-weight: 500;
+    margin-left: 4px;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `
 
-const Attribution = styled.a`
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.75);
-  text-decoration: none;
+const SuccessMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing(3)};
+  padding: ${({ theme }) => theme.spacing(4)} 0;
+  text-align: center;
 
-  &:hover {
-    text-decoration: underline;
+  svg {
+    color: ${({ theme }) => theme.colors.success};
+    width: 48px;
+    height: 48px;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  p {
+    color: ${({ theme }) => theme.colors.textMuted};
+    font-size: 0.95rem;
   }
 `
-
-function MailIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <rect x="2" y="4" width="20" height="16" rx="2" />
-      <path d="m22 6-10 7L2 6" />
-    </svg>
-  )
-}
-
-function LockIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <rect x="3" y="11" width="18" height="11" rx="2" />
-      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-    </svg>
-  )
-}
-
-// Diagonal comet-tail decoration, positioned to echo the reference asset
-function Comets() {
-  const items = [
-    { size: 90, bottom: 20, left: -20 },
-    { size: 60, bottom: 90, left: 90 },
-    { size: 130, bottom: -10, left: 200 },
-    { size: 50, bottom: 130, left: 320 },
-    { size: 100, bottom: 40, left: 400 },
-  ]
-  return (
-    <>
-      {items.map((c, i) => (
-        <Comet
-          key={i}
-          style={{
-            width: c.size,
-            height: Math.max(14, c.size * 0.2),
-            bottom: c.bottom,
-            left: c.left,
-            transform: 'rotate(-40deg)',
-          }}
-        />
-      ))}
-      <CometTail style={{ width: 60, bottom: 190, left: 30, transform: 'rotate(-40deg)' }} />
-      <CometTail style={{ width: 80, bottom: 250, left: 140, transform: 'rotate(-40deg)' }} />
-      <CometTail style={{ width: 50, bottom: 320, left: 260, transform: 'rotate(-40deg)' }} />
-    </>
-  )
-}
 
 function Register() {
   const dispatch = useDispatch()
@@ -307,82 +116,108 @@ function Register() {
     dispatch(register({ username: form.username, password: form.password }))
   }
 
+  const isLoading = status === 'loading'
+  const isSuccess = status === 'succeeded' && submitted
+
   return (
     <Page>
-      <Card>
-        <WelcomePanel>
-          <Glow />
-          <Comets />
+      <AuthContainer>
+        {isSuccess ? (
+          <SuccessMessage>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" strokeLinecap="round" strokeLinejoin="round"/>
+              <polyline points="22 4 12 14.01 9 11.01" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <h3>Account created successfully</h3>
+            <p>You can now sign in with your new credentials.</p>
+            <Link to="/login" style={{ width: '100%' }}>
+              <Button $fullWidth>Go to Login</Button>
+            </Link>
+          </SuccessMessage>
+        ) : (
+          <>
+            <Header>
+              <Title>Create an account</Title>
+              <Subtitle>Enter your details to get started</Subtitle>
+            </Header>
 
-          <WelcomeTitle>Join us today</WelcomeTitle>
-          <WelcomeText>
-            Create an account to get started. It only takes a minute, and
-            you'll have full access to your dashboard right away.
-          </WelcomeText>
-        </WelcomePanel>
+            {(localError || (status === 'failed' && error)) && (
+              <ErrorMessage>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                {localError || error}
+              </ErrorMessage>
+            )}
 
-        <FormPanel>
-          <FormTitle>CREATE ACCOUNT</FormTitle>
+            <Form onSubmit={handleSubmit}>
+              <FormGroup>
+                <Label htmlFor="username">Email address</Label>
+                <Input
+                  id="username"
+                  type="email"
+                  name="username"
+                  placeholder="name@example.com"
+                  value={form.username}
+                  onChange={handleChange}
+                  autoComplete="email"
+                  required
+                  disabled={isLoading}
+                />
+              </FormGroup>
 
-          <Form onSubmit={handleSubmit}>
-            <Field>
-              <IconWrap><MailIcon /></IconWrap>
-              <Input
-                type="email"
-                name="username"
-                placeholder="Email ID"
-                value={form.username}
-                onChange={handleChange}
-                autoComplete="email"
-                required
-              />
-            </Field>
+              <FormGroup>
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="••••••••"
+                  value={form.password}
+                  onChange={handleChange}
+                  autoComplete="new-password"
+                  required
+                  disabled={isLoading}
+                />
+                <HelperText>Must be at least 8 characters.</HelperText>
+              </FormGroup>
 
-            <Field>
-              <IconWrap><LockIcon /></IconWrap>
-              <Input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={form.password}
-                onChange={handleChange}
-                autoComplete="new-password"
-                required
-              />
-            </Field>
+              <FormGroup>
+                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Input
+                  id="confirmPassword"
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="••••••••"
+                  value={form.confirmPassword}
+                  onChange={handleChange}
+                  autoComplete="new-password"
+                  required
+                  disabled={isLoading}
+                />
+              </FormGroup>
 
-            <Field>
-              <IconWrap><LockIcon /></IconWrap>
-              <Input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm password"
-                value={form.confirmPassword}
-                onChange={handleChange}
-                autoComplete="new-password"
-                required
-              />
-            </Field>
+              <Button type="submit" $fullWidth disabled={isLoading} style={{ marginTop: '8px' }}>
+                {isLoading ? (
+                  <>
+                    <Spinner size="18px" />
+                    Creating account...
+                  </>
+                ) : (
+                  'Create account'
+                )}
+              </Button>
+            </Form>
 
-            <HelperRow>Use at least 8 characters.</HelperRow>
-
-            <SubmitButton type="submit" disabled={status === 'loading'}>
-              {status === 'loading' ? 'CREATING…' : 'CREATE ACCOUNT'}
-            </SubmitButton>
-          </Form>
-
-          {localError && <ErrorBanner>{localError}</ErrorBanner>}
-          {!localError && status === 'failed' && <ErrorBanner>{error}</ErrorBanner>}
-          {status === 'succeeded' && submitted && (
-            <SuccessBanner>Account created. You can now sign in.</SuccessBanner>
-          )}
-
-          <SwitchText>
-            Already have an account? <a href="/login">Sign in</a>
-          </SwitchText>
-        </FormPanel>
-      </Card>
-
+            <FooterText>
+              Already have an account? 
+              <Link to="/login">Sign in</Link>
+            </FooterText>
+          </>
+        )}
+      </AuthContainer>
     </Page>
   )
 }
