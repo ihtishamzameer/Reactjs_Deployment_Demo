@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Nav = styled.nav`
@@ -44,7 +45,10 @@ const LinkItem = styled.li`
     color: ${({ theme }) => theme.colors.text};
     text-decoration: none;
     font-size: 0.95rem;
-    &:hover { color: ${({ theme }) => theme.colors.primary}; }
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.primary};
+    }
   }
 `
 
@@ -64,14 +68,34 @@ const MenuButton = styled.button`
 function Topbar() {
   const [menuOpen, setMenuOpen] = useState(false)
 
+  const closeMenu = () => {
+    setMenuOpen(false)
+  }
+
   return (
     <Nav>
       <Logo>MyApp</Logo>
+
       <Links $open={menuOpen}>
-        <LinkItem><a href="/">Home</a></LinkItem>
-        <LinkItem><a href="/dashboard">Dashboard</a></LinkItem>
-        <LinkItem><a href="/login">Login</a></LinkItem>
+        <LinkItem>
+          <Link to="/" onClick={closeMenu}>
+            Home
+          </Link>
+        </LinkItem>
+
+        <LinkItem>
+          <Link to="/dashboard" onClick={closeMenu}>
+            Dashboard
+          </Link>
+        </LinkItem>
+
+        <LinkItem>
+          <Link to="/login" onClick={closeMenu}>
+            Login
+          </Link>
+        </LinkItem>
       </Links>
+
       <MenuButton onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? '✕' : '☰'}
       </MenuButton>
