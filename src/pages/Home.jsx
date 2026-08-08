@@ -113,7 +113,7 @@ function Home() {
     <Page>
       <PageHeader>
         <HeadingGroup>
-          <PageTitle>Dashboard<span>.</span></PageTitle>
+          <PageTitle>Project Management Dashboard<span>.</span></PageTitle>
           <PageSubtitle>Plan, prioritize, and accomplish your work with ease.</PageSubtitle>
         </HeadingGroup>
         <HeaderActions>
