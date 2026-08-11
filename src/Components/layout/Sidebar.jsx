@@ -242,7 +242,7 @@ function Sidebar({ onClose }) {
 
       <NavArea>
         <SectionLabel>Menu</SectionLabel>
-        <StyledNavLink to="/" end onClick={handleNav}><DashIcon /> Dashboard</StyledNavLink>
+        <StyledNavLink to="/dashboard" end onClick={handleNav}><DashIcon /> Dashboard</StyledNavLink>
         <StyledNavLink to="/projects" onClick={handleNav}><ProjIcon /> Projects</StyledNavLink>
         <StyledNavLink to="/tasks" onClick={handleNav}><TaskIcon /> Tasks</StyledNavLink>
         <StyledNavLink to="/calendar" onClick={handleNav}><CalIcon /> Calendar</StyledNavLink>

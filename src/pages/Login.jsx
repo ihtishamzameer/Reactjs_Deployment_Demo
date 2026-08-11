@@ -1,7 +1,7 @@
 // pages/Login.jsx
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { login } from '../features/auth/authSlice'
 import { Button, Input, Label, FormGroup, Card, ErrorMessage, Spinner } from '../styles/shared'
@@ -104,11 +104,13 @@ function Login() {
   const [rememberMe, setRememberMe] = useState(true)
 
   // Redirect to home when authenticated
+  const location = useLocation();
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/', { replace: true })
+      const from = location.state?.from?.pathname || '/dashboard';
+      navigate(from, { replace: true });
     }
-  }, [isAuthenticated, navigate])
+  }, [isAuthenticated, navigate, location])
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
