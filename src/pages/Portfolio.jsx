@@ -66,6 +66,10 @@ const MouseSpotlight = styled.div`
         : 'rgba(99, 102, 241, 0.18), rgba(139, 92, 246, 0.06) 40%, transparent 80%'}
   );
   transition: opacity 0.3s ease;
+
+  @media (pointer: coarse), (hover: none) {
+    display: none !important;
+  }
 `
 
 const LightningFollower = styled.div`
@@ -90,6 +94,10 @@ const LightningFollower = styled.div`
       : '0 0 26px 8px rgba(129, 140, 248, 0.7), 0 0 50px 14px rgba(99, 102, 241, 0.5)'};
   mix-blend-mode: ${({ $theme }) => ($theme === 'light' ? 'normal' : 'screen')};
   transition: transform 0.04s ease-out;
+
+  @media (pointer: coarse), (hover: none) {
+    display: none !important;
+  }
 
   &::after {
     content: '';
