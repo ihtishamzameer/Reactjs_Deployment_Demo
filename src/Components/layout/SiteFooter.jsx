@@ -142,8 +142,8 @@ export default function SiteFooter({ theme = 'dark' }) {
           <LinkList>
             <li><ExtLink href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" $theme={theme}>LinkedIn</ExtLink></li>
             <li><ExtLink href={personalInfo.github} target="_blank" rel="noopener noreferrer" $theme={theme}>GitHub</ExtLink></li>
-            <li><ExtLink href={`mailto:${personalInfo.email}`} $theme={theme}>{personalInfo.email}</ExtLink></li>
-            <li><ExtLink href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`} $theme={theme}>{personalInfo.phone}</ExtLink></li>
+            <li><ExtLink href={personalInfo.gmailUrl} target="_blank" rel="noopener noreferrer" $theme={theme}>Gmail ({personalInfo.email})</ExtLink></li>
+            <li><ExtLink href={personalInfo.whatsappUrl} target="_blank" rel="noopener noreferrer" $theme={theme}>WhatsApp ({personalInfo.phone})</ExtLink></li>
           </LinkList>
         </FooterCol>
       </FooterGrid>

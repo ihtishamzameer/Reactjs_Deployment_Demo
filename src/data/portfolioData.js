@@ -14,6 +14,8 @@ export const personalInfo = {
     'Building robust, scalable enterprise-grade web applications with ASP.NET Core, C#, and React.js.',
   email: 'ihtishamzameer49@gmail.com',
   phone: '+92 310 5317050',
+  whatsappUrl: 'https://wa.me/923105317050?text=Hi%20Ihtisham,%20I%20saw%20your%20portfolio!',
+  gmailUrl: 'https://mail.google.com/mail/?view=cm&fs=1&to=ihtishamzameer49@gmail.com',
   github: 'https://github.com/ihtishamzameer',
   linkedin: 'https://www.linkedin.com/in/ihtishamzameer',
   location: 'Rawalpindi, Pakistan',

@@ -1321,24 +1321,26 @@ export default function Portfolio() {
             I'm actively looking for new opportunities as a <strong style={{ color: theme === 'light' ? '#4f46e5' : '#818cf8' }}>.NET Full Stack Developer</strong>. Whether you have a project in mind, a role to fill, or just want to say hello — my inbox is always open.
           </ContactDesc>
           <BtnPrimary
-            href={`mailto:${email}`}
+            href={personalInfo.gmailUrl || `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`}
+            target="_blank"
+            rel="noopener noreferrer"
             style={{ display: 'inline-flex', margin: '0 auto' }}
-            aria-label="Send Email to Ihtisham Zameer"
+            aria-label="Send Message on Gmail"
           >
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
-            Say Hello
+            Say Hello on Gmail
           </BtnPrimary>
           <ContactLinks>
             {email && (
-              <ContactLink href={`mailto:${email}`} $theme={theme} aria-label="Email Address">
+              <ContactLink href={personalInfo.gmailUrl || `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`} target="_blank" rel="noopener noreferrer" $theme={theme} aria-label="Email via Gmail">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
                 {email}
               </ContactLink>
             )}
             {phone && (
-              <ContactLink href={`tel:${phone.replace(/\s+/g, '')}`} $theme={theme} aria-label="Phone Number">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
-                {phone}
+              <ContactLink href={personalInfo.whatsappUrl || `https://wa.me/923105317050`} target="_blank" rel="noopener noreferrer" $theme={theme} aria-label="Message on WhatsApp">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.81 9.81 0 0 0 12.04 2zm5.8 14.12c-.24.68-1.2 1.3-1.66 1.35-.46.06-1.04.22-3.48-.75-2.94-1.18-4.83-4.17-4.97-4.37-.15-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1.01-2.41.27-.29.59-.36.79-.36.2 0 .39.01.56.01.18 0 .42-.07.66.5.24.58.82 2.01.89 2.16.07.15.12.33.02.53-.1.2-.15.33-.3.51-.15.18-.31.39-.44.53-.15.15-.3.31-.13.6.17.29.77 1.27 1.65 2.05 1.13 1 2.08 1.32 2.38 1.47.3.15.47.12.65-.08.18-.2.77-.9.98-1.21.21-.31.42-.26.7-.15.28.11 1.78.84 2.09.99.31.15.52.23.59.36.07.14.07.8-.17 1.48z"/></svg>
+                {phone} (WhatsApp)
               </ContactLink>
             )}
             {linkedin && (

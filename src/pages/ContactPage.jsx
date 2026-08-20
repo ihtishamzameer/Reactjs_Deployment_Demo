@@ -176,8 +176,8 @@ export default function ContactPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(formData.subject || 'Portfolio Contact')}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`;
-    window.location.href = mailtoUrl;
+    const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${personalInfo.email}&su=${encodeURIComponent(formData.subject || 'Portfolio Contact')}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
+    window.open(gmailComposeUrl, '_blank', 'noopener,noreferrer');
     setSubmitted(true);
   };
 
@@ -205,15 +205,19 @@ export default function ContactPage() {
               <IconCircle>📧</IconCircle>
               <div>
                 <div style={{ fontSize: '0.82rem', color: theme === 'light' ? '#64748b' : '#94a3b8' }}>Email Address</div>
-                <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a>
+                <a href={personalInfo.gmailUrl} target="_blank" rel="noopener noreferrer">
+                  {personalInfo.email} (Gmail)
+                </a>
               </div>
             </ContactItem>
 
             <ContactItem $theme={theme}>
-              <IconCircle>📞</IconCircle>
+              <IconCircle>💬</IconCircle>
               <div>
-                <div style={{ fontSize: '0.82rem', color: theme === 'light' ? '#64748b' : '#94a3b8' }}>Phone / WhatsApp</div>
-                <a href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`}>{personalInfo.phone}</a>
+                <div style={{ fontSize: '0.82rem', color: theme === 'light' ? '#64748b' : '#94a3b8' }}>WhatsApp Direct</div>
+                <a href={personalInfo.whatsappUrl} target="_blank" rel="noopener noreferrer">
+                  {personalInfo.phone} (WhatsApp)
+                </a>
               </div>
             </ContactItem>
 

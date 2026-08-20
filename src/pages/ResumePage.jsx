@@ -189,8 +189,8 @@ export default function ResumePage() {
             <SubRole $theme={theme}>{personalInfo.title}</SubRole>
             <ContactMeta $theme={theme}>
               <span>📍 {personalInfo.location}</span>
-              <span>📧 <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a></span>
-              <span>📞 <a href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`}>{personalInfo.phone}</a></span>
+              <span>📧 <a href={personalInfo.gmailUrl} target="_blank" rel="noopener noreferrer">{personalInfo.email}</a></span>
+              <span>💬 <a href={personalInfo.whatsappUrl} target="_blank" rel="noopener noreferrer">{personalInfo.phone}</a></span>
             </ContactMeta>
           </div>
           <PdfBtn href={personalInfo.resumeUrl} target="_blank" rel="noopener noreferrer" aria-label="Download Official Resume PDF">
