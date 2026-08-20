@@ -16,7 +16,8 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.5;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   a { text-decoration: none; color: inherit; }

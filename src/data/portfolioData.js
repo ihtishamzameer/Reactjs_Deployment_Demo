@@ -89,7 +89,9 @@ export const experience = [
 export const projects = [
   {
     id: 1,
+    slug: 'smartcorp-hrm',
     title: 'SmartCorp HRM',
+    subtitle: 'Enterprise Human Resource & Payroll Management Platform',
     description:
       'An enterprise Human Resource Management platform built by .NET Full Stack Developer Ihtisham Zameer. Adopted company-wide by 150+ employees, utilizing Clean Architecture and MediatR (CQRS) for employee lifecycles, attendance, leave, and automated payroll reporting.',
     tech: [
@@ -113,10 +115,29 @@ export const projects = [
       'Automated HR & payroll analytics reporting with Telerik Reporting, cutting manual effort by 60–70%',
       'Implemented role-based authorization ensuring 0 reported security incidents across 150+ employee records',
     ],
+    caseStudy: {
+      problem: 'TechtaGone Technologies required a unified, robust enterprise platform to digitize manual employee records, streamline daily attendance, automate complex monthly payroll calculations, and enforce role-based security across 150+ personnel.',
+      role: '.NET Full Stack Developer (Lead Module Engineer)',
+      techStackDetails: [
+        { name: 'ASP.NET Core 8 Web API', usage: 'Backend RESTful API architecture following Clean Architecture design patterns' },
+        { name: 'MediatR (CQRS Pattern)', usage: 'Separation of commands and queries for decoupled, maintainable request pipelines' },
+        { name: 'SQL Server & EF Core', usage: 'Relational database schema, 40+ database migrations, T-SQL indexes, and LINQ queries' },
+        { name: 'MudBlazor & Radzen', usage: 'Modern responsive web interfaces for HR administrators and employees' },
+        { name: 'Telerik Reporting', usage: 'Automated calculation and generation of PDF/Excel payroll summaries' },
+      ],
+      keyChallenges: [
+        'Handling high concurrency during peak morning attendance check-ins without database locking.',
+        'Executing atomic transactions across MediatR command handlers for complex leave deduction logic.',
+        'Managing 40+ Entity Framework Core schema migrations with zero downtime and 100% data integrity.',
+      ],
+      outcome: 'Adopted company-wide by 150+ employees. Cut monthly manual payroll processing effort by 60–70% while maintaining 0 security incidents across all confidential employee records.',
+    },
   },
   {
     id: 2,
+    slug: 'smartpay',
     title: 'SmartPay: Payroll System',
+    subtitle: 'High-Precision Validation & Enterprise Payroll Calculation Engine',
     description:
       'Core payroll engine developed by Ihtisham Zameer for enterprise HR systems, incorporating robust validation pipelines in ASP.NET Core and SQL Server to eliminate data-entry errors.',
     tech: ['ASP.NET Core', 'C#', 'Entity Framework Core', 'SQL Server'],
@@ -129,10 +150,26 @@ export const projects = [
       'Implemented robust input and file-size validation rules',
       'Significantly reduced data-entry errors in production',
     ],
+    caseStudy: {
+      problem: 'Payroll calculation routines suffered from edge-case validation errors when receiving manual CSV uploads and custom overtime inputs, leading to accounting reconciliation delays.',
+      role: '.NET Backend Developer Intern',
+      techStackDetails: [
+        { name: 'ASP.NET Core', usage: 'Validation filters and pipeline middleware for requests' },
+        { name: 'C# / FluentValidation', usage: 'Strongly typed business validation rules for payroll data' },
+        { name: 'SQL Server', usage: 'Stored procedures and atomic transactional updates' },
+      ],
+      keyChallenges: [
+        'Refactoring legacy calculation logic without breaking historical payroll records.',
+        'Enforcing strict payload size and MIME-type validation for document uploads.',
+      ],
+      outcome: 'Resolved 20+ existing payroll bugs, eliminated data-entry validation failures, and secured promotion to Junior .NET Developer within 6 months.',
+    },
   },
   {
     id: 3,
+    slug: 'plagiarism-checker',
     title: 'Plagiarism Checker System',
+    subtitle: 'AI-Powered NLP Document Similarity & Plagiarism Detection Engine',
     description:
       'An AI-powered plagiarism detection web application architected by Ihtisham Zameer using ASP.NET Core Web API, React.js, and Sentence Transformers for semantic similarity scoring.',
     tech: ['ASP.NET Core Web API', 'React.js', 'NLP', 'Python', 'SQL Server'],
@@ -145,6 +182,189 @@ export const projects = [
       'Owned full backend API development in ASP.NET Core',
       'Implemented NLP-based semantic similarity scoring',
     ],
+    caseStudy: {
+      problem: 'Academic institutions needed an automated tool capable of checking student submissions not only for exact text matches, but also for semantic rephrasing and structural similarity.',
+      role: 'Backend Architect & Full Stack Developer',
+      techStackDetails: [
+        { name: 'ASP.NET Core Web API', usage: 'Core microservices backend managing user roles, submission queues, and reports' },
+        { name: 'Python & Sentence Transformers', usage: 'Vector embedding generation and cosine similarity calculation' },
+        { name: 'React.js Frontend', usage: 'Interactive UI with visual heatmap highlight of flagged text sections' },
+        { name: 'SQL Server', usage: 'Indexing document embeddings and metadata storage' },
+      ],
+      keyChallenges: [
+        'Optimizing similarity scoring performance across large multi-page documents.',
+        'Designing a clean API bridge between ASP.NET Core Web API and Python NLP scripts.',
+      ],
+      outcome: 'Delivered as a successful Final Year Capstone Project, earning top academic marks and demonstrating seamless integration between .NET enterprise backends and Python AI models.',
+    },
+  },
+]
+
+export const blogPosts = [
+  {
+    id: 1,
+    slug: 'building-rest-api-aspnet-core-clean-architecture',
+    title: 'Building Scalable REST APIs with ASP.NET Core & Clean Architecture',
+    excerpt: 'A practical guide by .NET Full Stack Developer Ihtisham Zameer on structuring enterprise ASP.NET Core Web APIs using Clean Architecture, MediatR (CQRS), and Entity Framework Core.',
+    date: '2026-08-15',
+    readTime: '6 min read',
+    category: '.NET & C#',
+    tags: ['ASP.NET Core', 'Clean Architecture', 'CQRS', 'C#', 'SQL Server'],
+    author: {
+      name: 'Ihtisham Zameer',
+      role: '.NET Full Stack Developer',
+      image: '/profile.webp'
+    },
+    content: `When building enterprise software, architecture choices determine how gracefully an application handles growth, maintainability, and testing. Clean Architecture (popularized by Robert C. Martin) decouples application core domain logic from external dependencies like databases, web frameworks, and UI components.
+
+### 🏛️ Core Layers of Clean Architecture
+
+1. **Domain Layer**: Contains enterprise entities, value objects, domain events, and core business rules. Free of any external dependencies.
+2. **Application Layer**: Contains use cases, DTOs, MediatR commands, queries, and interface abstractions.
+3. **Infrastructure Layer**: Implements database persistence (EF Core, SQL Server), email providers, and file storage.
+4. **API / Presentation Layer**: ASP.NET Core Controllers or Minimal APIs responsible for HTTP request parsing and response formatting.
+
+### 🔄 Why CQRS with MediatR?
+
+Command Query Responsibility Segregation (CQRS) separates read operations (Queries) from write operations (Commands). By using MediatR in ASP.NET Core:
+- Handlers stay slim and focused on single responsibilities.
+- Cross-cutting concerns like logging, validation (FluentValidation), and caching can be injected seamlessly using MediatR Pipeline Behaviors.
+
+\`\`\`csharp
+// Example MediatR Command Handler in ASP.NET Core
+public record CreateEmployeeCommand(string FullName, string Email, string Department) : IRequest<int>;
+
+public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeCommand, int>
+{
+    private readonly IApplicationDbContext _context;
+    public CreateEmployeeCommandHandler(IApplicationDbContext context) => _context = context;
+
+    public async Task<int> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
+    {
+        var entity = new Employee(request.FullName, request.Email, request.Department);
+        _context.Employees.Add(entity);
+        await _context.SaveChangesAsync(cancellationToken);
+        return entity.Id;
+    }
+}
+\`\`\`
+
+By organizing your ASP.NET Core solution this way, your codebase remains clean, testable, and ready for long-term scalability.`,
+  },
+  {
+    id: 2,
+    slug: 'react-dotnet-integration-tips',
+    title: 'Essential Tips for Integrating React.js with ASP.NET Core Backends',
+    excerpt: 'Key strategies for handling JWT authentication, CORS policies, Axios interceptors, and typed API response contracts between React frontend and ASP.NET Core Web API.',
+    date: '2026-08-01',
+    readTime: '5 min read',
+    category: 'Full Stack',
+    tags: ['React.js', 'ASP.NET Core', 'JWT', 'REST API', 'JavaScript'],
+    author: {
+      name: 'Ihtisham Zameer',
+      role: '.NET Full Stack Developer',
+      image: '/profile.webp'
+    },
+    content: `Connecting a modern React SPA to an ASP.NET Core backend is one of the most common full-stack architectures in enterprise applications. Here are essential best practices to ensure security, reliability, and clean developer workflows.
+
+### 1. Configured CORS Security
+
+Always configure CORS explicitly in your ASP.NET Core \`Program.cs\` to allow credentials only from trusted frontend domains:
+
+\`\`\`csharp
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        policy.WithOrigins("https://ihtisham-phi.vercel.app", "http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+\`\`\`
+
+### 2. Centralized Axios Instance with Token Refresh Interceptor
+
+Instead of passing headers manually in every component, use an Axios instance with interceptors for automatically injecting JWT bearer tokens and handling token expiration:
+
+\`\`\`javascript
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
+});
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = \`Bearer \${token}\`;
+  }
+  return config;
+});
+\`\`\`
+
+### 3. Consistent API Envelope Responses
+
+Maintain a uniform response DTO contract across all controller endpoints in ASP.NET Core:
+
+\`\`\`csharp
+public class ApiResponse<T>
+{
+    public bool Success { get; set; }
+    public string Message { get; set; }
+    public T Data { get; set; }
+}
+\`\`\`
+
+This standard makes UI state management predictable and prevents runtime exceptions in React components.`,
+  },
+  {
+    id: 3,
+    slug: 'optimizing-entity-framework-core-performance',
+    title: 'Optimizing Entity Framework Core Query Performance in SQL Server',
+    excerpt: 'Learn how to eliminate N+1 queries, leverage AsNoTracking(), index T-SQL tables effectively, and speed up EF Core database interactions.',
+    date: '2026-07-20',
+    readTime: '7 min read',
+    category: 'Databases & Performance',
+    tags: ['Entity Framework', 'SQL Server', 'T-SQL', 'Performance', 'C#'],
+    author: {
+      name: 'Ihtisham Zameer',
+      role: '.NET Full Stack Developer',
+      image: '/profile.webp'
+    },
+    content: `Entity Framework Core provides productive ORM abstractions, but unoptimized LINQ queries can bottleneck SQL Server performance. Here are key performance tuning techniques I use in enterprise applications.
+
+### 1. Disable Change Tracking for Read-Only Queries
+
+By default, EF Core tracks changes for all queried entities. For read-only API endpoints, use \`AsNoTracking()\`:
+
+\`\`\`csharp
+// 30-50% faster execution & significantly less memory allocation
+var employees = await _context.Employees
+    .AsNoTracking()
+    .Where(e => e.IsActive)
+    .ToListAsync();
+\`\`\`
+
+### 2. Prevent the N+1 Query Problem
+
+Always use \`Include()\` and \`ThenInclude()\` or project directly into DTOs using \`Select()\` to combine queries into a single SQL join statement:
+
+\`\`\`csharp
+var employeeDTOs = await _context.Employees
+    .AsNoTracking()
+    .Select(e => new EmployeeDto {
+        Id = e.Id,
+        Name = e.FullName,
+        DepartmentName = e.Department.Name
+    })
+    .ToListAsync();
+\`\`\`
+
+### 3. SQL Server Indexing Strategy
+
+Pair your EF Core queries with proper SQL Server non-clustered indexes on foreign key columns and frequently searched properties (e.g. \`Email\`, \`DepartmentId\`, \`IsActive\`).`,
   },
 ]
 
@@ -196,11 +416,13 @@ export const certifications = [
 ]
 
 export const navLinks = [
-  { label: 'Home', href: '#hero' },
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Education', href: '#education' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/#about' },
+  { label: 'Skills', href: '/#skills' },
+  { label: 'Experience', href: '/#experience' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Resume', href: '/resume' },
+  { label: 'Contact', href: '/contact' },
 ]
+

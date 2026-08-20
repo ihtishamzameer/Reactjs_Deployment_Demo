@@ -1,5 +1,6 @@
 // src/Components/portfolio/PortfolioNav.jsx
 import React, { useState, useEffect } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import styled, { keyframes, css } from 'styled-components'
 import { navLinks } from '../../data/portfolioData'
 
@@ -42,7 +43,7 @@ const Nav = styled.nav`
         `}
 `
 
-const Logo = styled.a`
+const Logo = styled(Link)`
   font-size: 1.3rem;
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -66,7 +67,7 @@ const Links = styled.div`
   }
 `
 
-const NavLink = styled.a`
+const NavItemLink = styled(Link)`
   padding: 6px 14px;
   border-radius: 8px;
   font-size: 0.875rem;
@@ -74,7 +75,6 @@ const NavLink = styled.a`
   color: ${({ $theme }) => ($theme === 'light' ? '#475569' : '#94a3b8')};
   text-decoration: none;
   transition: all 0.2s ease;
-  cursor: pointer;
 
   &:hover {
     color: ${({ $theme }) => ($theme === 'light' ? '#0f172a' : '#e2e8f0')};
@@ -93,7 +93,7 @@ const NavLink = styled.a`
     `}
 `
 
-const HireBtn = styled.a`
+const HireBtn = styled(Link)`
   padding: 8px 20px;
   background: linear-gradient(135deg, #6366f1, #818cf8);
   color: #fff;
@@ -181,7 +181,7 @@ const MobileMenu = styled.div`
   }
 `
 
-const MobileNavLink = styled.a`
+const MobileNavLink = styled(Link)`
   padding: 12px 16px;
   border-radius: 10px;
   font-size: 1rem;
@@ -189,7 +189,6 @@ const MobileNavLink = styled.a`
   color: ${({ $theme }) => ($theme === 'light' ? '#475569' : '#94a3b8')};
   text-decoration: none;
   transition: all 0.2s ease;
-  cursor: pointer;
 
   &:hover {
     color: ${({ $theme }) => ($theme === 'light' ? '#0f172a' : '#e2e8f0')};
@@ -252,35 +251,35 @@ const ThemeToggleBtn = styled.button`
 
 function PortfolioNav({ theme = 'dark', toggleTheme }) {
   const [scrolled, setScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState('hero')
   const [mobileOpen, setMobileOpen] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
-
-      // Determine active section
-      const sections = navLinks.map(l => l.href.replace('#', ''))
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i])
-        if (el && el.getBoundingClientRect().top <= 100) {
-          setActiveSection(sections[i])
-          break
-        }
-      }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const scrollTo = (href) => {
-    const id = href.replace('#', '')
-    const el = document.getElementById(id)
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' })
-    }
+  const handleNavClick = (href, e) => {
     setMobileOpen(false)
+    if (href.startsWith('/#')) {
+      e.preventDefault()
+      const targetId = href.replace('/#', '')
+      if (location.pathname === '/') {
+        const el = document.getElementById(targetId)
+        if (el) el.scrollIntoView({ behavior: 'smooth' })
+      } else {
+        navigate('/', { replace: false })
+        setTimeout(() => {
+          const el = document.getElementById(targetId)
+          if (el) el.scrollIntoView({ behavior: 'smooth' })
+        }, 100)
+      }
+    }
   }
 
   const isDark = theme === 'dark'
@@ -288,21 +287,21 @@ function PortfolioNav({ theme = 'dark', toggleTheme }) {
   return (
     <header>
       <Nav $scrolled={scrolled} $theme={theme} aria-label="Main Navigation">
-        <Logo onClick={() => scrollTo('#hero')} $theme={theme} aria-label="Ihtisham Zameer Portfolio Home">
+        <Logo to="/" $theme={theme} aria-label="Ihtisham Zameer Portfolio Home">
           IZ<span>.</span>
         </Logo>
 
         <Links>
           {navLinks.map(link => (
-            <NavLink
-              key={link.href}
-              href={link.href}
-              $active={activeSection === link.href.replace('#', '')}
+            <NavItemLink
+              key={link.label}
+              to={link.href}
+              $active={location.pathname === link.href}
               $theme={theme}
-              onClick={e => { e.preventDefault(); scrollTo(link.href) }}
+              onClick={e => handleNavClick(link.href, e)}
             >
               {link.label}
-            </NavLink>
+            </NavItemLink>
           ))}
         </Links>
 
@@ -314,7 +313,6 @@ function PortfolioNav({ theme = 'dark', toggleTheme }) {
             title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
           >
             {isDark ? (
-              /* Sun Icon for Dark mode to switch to Light */
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="5" fill="#fbbf24" stroke="none" />
                 <line x1="12" y1="1" x2="12" y2="3" />
@@ -327,14 +325,13 @@ function PortfolioNav({ theme = 'dark', toggleTheme }) {
                 <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
               </svg>
             ) : (
-              /* Moon Icon for Light mode to switch to Dark */
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="#4f46e5" stroke="none" />
               </svg>
             )}
           </ThemeToggleBtn>
 
-          <HireBtn href="#contact" onClick={e => { e.preventDefault(); scrollTo('#contact') }}>
+          <HireBtn to="/contact">
             Hire Me
           </HireBtn>
 
@@ -354,10 +351,10 @@ function PortfolioNav({ theme = 'dark', toggleTheme }) {
       <MobileMenu $open={mobileOpen} $theme={theme} aria-label="Mobile Navigation">
         {navLinks.map(link => (
           <MobileNavLink
-            key={link.href}
-            href={link.href}
+            key={link.label}
+            to={link.href}
             $theme={theme}
-            onClick={e => { e.preventDefault(); scrollTo(link.href) }}
+            onClick={e => handleNavClick(link.href, e)}
           >
             {link.label}
           </MobileNavLink>
@@ -368,3 +365,4 @@ function PortfolioNav({ theme = 'dark', toggleTheme }) {
 }
 
 export default PortfolioNav
+

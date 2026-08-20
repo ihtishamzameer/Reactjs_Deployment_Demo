@@ -1,0 +1,21 @@
+{
+  "short_name": "Ihtisham Portfolio",
+  "name": "Ihtisham Zameer | .NET Full Stack Developer",
+  "description": "Portfolio of Ihtisham Zameer – .NET Full Stack Developer specializing in ASP.NET Core, C#, React.js, and SQL Server enterprise web applications.",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0c0e1a",
+  "theme_color": "#6366f1",
+  "display": "standalone"
+}

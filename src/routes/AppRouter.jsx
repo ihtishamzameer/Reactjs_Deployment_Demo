@@ -8,10 +8,22 @@ import Register from '../pages/Register'
 import NotFound from '../pages/NotFound'
 import PlaceholderPage from '../pages/PlaceholderPage'
 import Portfolio from '../pages/Portfolio'
+import ProjectsList from '../pages/ProjectsList'
+import ProjectDetail from '../pages/ProjectDetail'
+import BlogList from '../pages/BlogList'
+import BlogPost from '../pages/BlogPost'
+import ResumePage from '../pages/ResumePage'
+import ContactPage from '../pages/ContactPage'
 
 const router = createBrowserRouter([
-  // ─── Public routes ──────────────────────────────────────────────
+  // ─── Public portfolio routes ─────────────────────────────────────
   { path: '/', element: <Portfolio /> },
+  { path: '/projects', element: <ProjectsList /> },
+  { path: '/projects/:slug', element: <ProjectDetail /> },
+  { path: '/blog', element: <BlogList /> },
+  { path: '/blog/:slug', element: <BlogPost /> },
+  { path: '/resume', element: <ResumePage /> },
+  { path: '/contact', element: <ContactPage /> },
 
   // ─── Protected routes (require auth) ────────────────────────
   {
@@ -55,10 +67,11 @@ const router = createBrowserRouter([
   // ─── Standalone auth pages (no sidebar) ─────────────────────────
   { path: '/login', element: <Login /> },
   { path: '/register', element: <Register /> },
+  { path: '*', element: <NotFound /> },
 ])
 
 function AppRouter() {
   return <RouterProvider router={router} />
 }
 
-export default AppRouter
+export default AppRouter
