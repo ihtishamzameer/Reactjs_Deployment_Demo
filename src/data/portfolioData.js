@@ -21,9 +21,9 @@ export const personalInfo = {
   resumeUrl: '/Ihtisham_Zameer_Resume (1).pdf',
 }
 
-export const aboutText = `.NET Full Stack Developer with 2+ years of experience designing, building, and shipping enterprise-grade web applications using ASP.NET Core, C#, and SQL Server. Promoted from Intern to Junior .NET Developer within 6 months for strong delivery on a company-wide HRM platform built on Clean Architecture and MediatR (CQRS).
+export const aboutText = `I am Ihtisham Zameer, a dedicated .NET Full Stack Developer based in Rawalpindi, Pakistan with over 2 years of professional experience designing, building, and shipping high-performance enterprise web applications. My expertise spans the complete full-stack development lifecycle, leveraging ASP.NET Core, C#, and SQL Server on the backend along with dynamic React.js on the frontend.
 
-Skilled in RESTful API design, Entity Framework Core, responsive UI development, and automated reporting. Comfortable liaising directly with clients to translate business requirements into technical specifications, and passionate about writing maintainable, clean code.`
+Promoted from Intern to Junior .NET Developer within 6 months for strong delivery on a company-wide HRM platform built on Clean Architecture and MediatR (CQRS), I specialize in RESTful API design, Entity Framework Core, automated reporting, and secure database architecture. As a .NET Full Stack Developer, Ihtisham Zameer is passionate about translating complex business requirements into scalable, maintainable software solutions.`
 
 export const skills = {
   'Languages & Frameworks': [
@@ -91,7 +91,7 @@ export const projects = [
     id: 1,
     title: 'SmartCorp HRM',
     description:
-      'An enterprise Human Resource Management platform adopted company-wide by 150+ employees. Built using Clean Architecture and MediatR (CQRS) to handle end-to-end employee lifecycles, attendance, leave, and automated payroll reporting.',
+      'An enterprise Human Resource Management platform built by .NET Full Stack Developer Ihtisham Zameer. Adopted company-wide by 150+ employees, utilizing Clean Architecture and MediatR (CQRS) for employee lifecycles, attendance, leave, and automated payroll reporting.',
     tech: [
       'ASP.NET Core',
       'C#',
@@ -118,7 +118,7 @@ export const projects = [
     id: 2,
     title: 'SmartPay: Payroll System',
     description:
-      'Core backend features for an enterprise payroll system, handling complex validation and data-entry rules to strengthen API reliability.',
+      'Core payroll engine developed by Ihtisham Zameer for enterprise HR systems, incorporating robust validation pipelines in ASP.NET Core and SQL Server to eliminate data-entry errors.',
     tech: ['ASP.NET Core', 'C#', 'Entity Framework Core', 'SQL Server'],
     github: 'https://github.com/ihtishamzameer',
     live: null,
@@ -134,7 +134,7 @@ export const projects = [
     id: 3,
     title: 'Plagiarism Checker System',
     description:
-      'A plagiarism-detection web app using Sentence Transformers and text embeddings for semantic similarity detection between documents.',
+      'An AI-powered plagiarism detection web application architected by Ihtisham Zameer using ASP.NET Core Web API, React.js, and Sentence Transformers for semantic similarity scoring.',
     tech: ['ASP.NET Core Web API', 'React.js', 'NLP', 'Python', 'SQL Server'],
     github: 'https://github.com/ihtishamzameer',
     live: null,

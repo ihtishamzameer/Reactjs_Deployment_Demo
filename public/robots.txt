@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ihtisham-phi.vercel.app/sitemap.xml

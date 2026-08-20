@@ -286,9 +286,9 @@ function PortfolioNav({ theme = 'dark', toggleTheme }) {
   const isDark = theme === 'dark'
 
   return (
-    <>
-      <Nav $scrolled={scrolled} $theme={theme}>
-        <Logo onClick={() => scrollTo('#hero')} $theme={theme}>
+    <header>
+      <Nav $scrolled={scrolled} $theme={theme} aria-label="Main Navigation">
+        <Logo onClick={() => scrollTo('#hero')} $theme={theme} aria-label="Ihtisham Zameer Portfolio Home">
           IZ<span>.</span>
         </Logo>
 
@@ -342,7 +342,7 @@ function PortfolioNav({ theme = 'dark', toggleTheme }) {
             $open={mobileOpen}
             $theme={theme}
             onClick={() => setMobileOpen(v => !v)}
-            aria-label="Toggle menu"
+            aria-label="Toggle navigation menu"
           >
             <span />
             <span />
@@ -351,7 +351,7 @@ function PortfolioNav({ theme = 'dark', toggleTheme }) {
         </div>
       </Nav>
 
-      <MobileMenu $open={mobileOpen} $theme={theme}>
+      <MobileMenu $open={mobileOpen} $theme={theme} aria-label="Mobile Navigation">
         {navLinks.map(link => (
           <MobileNavLink
             key={link.href}
@@ -363,7 +363,7 @@ function PortfolioNav({ theme = 'dark', toggleTheme }) {
           </MobileNavLink>
         ))}
       </MobileMenu>
-    </>
+    </header>
   )
 }
 

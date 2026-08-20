@@ -892,12 +892,13 @@ const EntryIcon = styled.div`
 
 const EntryContent = styled.div``
 
-const EntryTitle = styled.div`
+const EntryTitle = styled.h4`
   font-size: 0.95rem;
   font-weight: 700;
   color: ${({ $theme }) => ($theme === 'light' ? '#0f172a' : '#e2e8f0')};
   margin-bottom: 3px;
   line-height: 1.35;
+  margin-top: 0;
 `
 
 const EntrySub = styled.div`
@@ -1079,254 +1080,276 @@ export default function Portfolio() {
       <Orb1 $theme={theme} />
       <Orb2 $theme={theme} />
 
-      {/* ── Portfolio Top Navigation ── */}
+      {/* ── Portfolio Header & Top Navigation ── */}
       <PortfolioNav theme={theme} toggleTheme={toggleTheme} />
 
-      {/* ── Hero ── */}
-      <HeroSection id="hero">
-        <HeroContent>
-          <HeroEyebrow $theme={theme}>Hello, I'm</HeroEyebrow>
-          <HeroName $theme={theme}>{name}</HeroName>
-          <HeroRole $theme={theme}>
-            <TypedText $theme={theme}>{typed}</TypedText>
-            <Cursor $theme={theme} />
-          </HeroRole>
-          <HeroTagline $theme={theme}>{tagline}</HeroTagline>
-          <HeroBtns>
-            <BtnPrimary
-              href="#projects"
-              onClick={e => { e.preventDefault(); document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }) }}
-            >
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" /></svg>
-              View My Work
-            </BtnPrimary>
-            <BtnOutline href={resumeUrl} target="_blank" rel="noopener noreferrer" $theme={theme}>
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg>
-              Resume
-            </BtnOutline>
-          </HeroBtns>
-        </HeroContent>
+      {/* ── Main Content Area ── */}
+      <main id="main-content">
+        {/* ── Hero ── */}
+        <HeroSection id="hero">
+          <HeroContent>
+            <HeroEyebrow $theme={theme}>Hello, I'm</HeroEyebrow>
+            <HeroName $theme={theme}>
+              {name}
+              <span style={{ display: 'block', fontSize: '0.45em', fontWeight: 700, color: theme === 'light' ? '#4f46e5' : '#818cf8', marginTop: '6px', letterSpacing: '0em' }}>
+                .NET Full Stack Developer
+              </span>
+            </HeroName>
+            <HeroRole $theme={theme}>
+              <TypedText $theme={theme}>{typed}</TypedText>
+              <Cursor $theme={theme} />
+            </HeroRole>
+            <HeroTagline $theme={theme}>{tagline}</HeroTagline>
+            <HeroBtns>
+              <BtnPrimary
+                href="#projects"
+                onClick={e => { e.preventDefault(); document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }) }}
+                aria-label="View Projects"
+              >
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" /></svg>
+                View My Work
+              </BtnPrimary>
+              <BtnOutline href={resumeUrl} target="_blank" rel="noopener noreferrer" $theme={theme} aria-label="Download Resume">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg>
+                Resume
+              </BtnOutline>
+            </HeroBtns>
+          </HeroContent>
 
-        <HeroImageWrap>
-          <ProfileRing>
-            <ProfileImg src={profileImage} alt={name} $theme={theme} />
-          </ProfileRing>
-          <HeroBadge $theme={theme}>Available for Work</HeroBadge>
-        </HeroImageWrap>
-      </HeroSection>
+          <HeroImageWrap>
+            <ProfileRing>
+              <picture>
+                <source srcSet="/profile.webp" type="image/webp" />
+                <ProfileImg
+                  src="/profile.png"
+                  alt="Ihtisham Zameer - .NET Full Stack Developer Profile Photo"
+                  width="320"
+                  height="320"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  $theme={theme}
+                />
+              </picture>
+            </ProfileRing>
+            <HeroBadge $theme={theme}>Available for Work</HeroBadge>
+          </HeroImageWrap>
+        </HeroSection>
 
-      {/* ── About ── */}
-      <Section id="about">
-        <SectionLabel>
-          <SectionNum $theme={theme}>01.</SectionNum>
-          <SectionTitle $theme={theme}>About Me</SectionTitle>
-          <SectionLine $theme={theme} />
-        </SectionLabel>
+        {/* ── About ── */}
+        <Section id="about">
+          <SectionLabel>
+            <SectionNum $theme={theme}>01.</SectionNum>
+            <SectionTitle $theme={theme}>About Me</SectionTitle>
+            <SectionLine $theme={theme} />
+          </SectionLabel>
 
-        <AboutGrid>
-          <AboutText $theme={theme}>
-            {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
-          </AboutText>
-          <AboutStats>
-            <StatCard $theme={theme}>
-              <StatNum $theme={theme}>2+</StatNum>
-              <StatLabel $theme={theme}>Years of Experience</StatLabel>
-            </StatCard>
-            <StatCard $theme={theme}>
-              <StatNum $theme={theme}>25+</StatNum>
-              <StatLabel $theme={theme}>REST APIs Built & Maintained</StatLabel>
-            </StatCard>
-            <StatCard $theme={theme}>
-              <StatNum $theme={theme}>60%</StatNum>
-              <StatLabel $theme={theme}>Reduction in manual reporting effort</StatLabel>
-            </StatCard>
-            <StatCard $theme={theme}>
-              <StatNum $theme={theme}>150+</StatNum>
-              <StatLabel $theme={theme}>Employee records secured</StatLabel>
-            </StatCard>
-          </AboutStats>
-        </AboutGrid>
-      </Section>
+          <AboutGrid>
+            <AboutText $theme={theme}>
+              {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+            </AboutText>
+            <AboutStats>
+              <StatCard $theme={theme}>
+                <StatNum $theme={theme}>2+</StatNum>
+                <StatLabel $theme={theme}>Years of Experience</StatLabel>
+              </StatCard>
+              <StatCard $theme={theme}>
+                <StatNum $theme={theme}>25+</StatNum>
+                <StatLabel $theme={theme}>REST APIs Built & Maintained</StatLabel>
+              </StatCard>
+              <StatCard $theme={theme}>
+                <StatNum $theme={theme}>60%</StatNum>
+                <StatLabel $theme={theme}>Reduction in manual reporting effort</StatLabel>
+              </StatCard>
+              <StatCard $theme={theme}>
+                <StatNum $theme={theme}>150+</StatNum>
+                <StatLabel $theme={theme}>Employee records secured</StatLabel>
+              </StatCard>
+            </AboutStats>
+          </AboutGrid>
+        </Section>
 
-      {/* ── Skills ── */}
-      <Section id="skills">
-        <SectionLabel>
-          <SectionNum $theme={theme}>02.</SectionNum>
-          <SectionTitle $theme={theme}>Technical Skills</SectionTitle>
-          <SectionLine $theme={theme} />
-        </SectionLabel>
-        <SkillsGrid>
-          {Object.entries(skills ?? {}).map(([cat, items]) => (
-            <SkillCard key={cat} $theme={theme}>
-              <SkillCategoryTitle $theme={theme}>{cat}</SkillCategoryTitle>
-              <SkillRow>
-                {(items ?? []).map(s => (
-                  <SkillItem key={s.name}>
-                    <SkillMeta>
-                      <SkillName $theme={theme}><span>{s.icon}</span>{s.name}</SkillName>
-                      <SkillPct $theme={theme}>{s.level}%</SkillPct>
-                    </SkillMeta>
-                    <ProgressTrack $theme={theme}>
-                      <ProgressFill $pct={s.level} $theme={theme} />
-                    </ProgressTrack>
-                  </SkillItem>
-                ))}
-              </SkillRow>
-            </SkillCard>
-          ))}
-        </SkillsGrid>
-      </Section>
+        {/* ── Skills ── */}
+        <Section id="skills">
+          <SectionLabel>
+            <SectionNum $theme={theme}>02.</SectionNum>
+            <SectionTitle $theme={theme}>Technical Skills</SectionTitle>
+            <SectionLine $theme={theme} />
+          </SectionLabel>
+          <SkillsGrid>
+            {Object.entries(skills ?? {}).map(([cat, items]) => (
+              <SkillCard key={cat} $theme={theme}>
+                <SkillCategoryTitle $theme={theme}>{cat}</SkillCategoryTitle>
+                <SkillRow>
+                  {(items ?? []).map(s => (
+                    <SkillItem key={s.name}>
+                      <SkillMeta>
+                        <SkillName $theme={theme}><span>{s.icon}</span>{s.name}</SkillName>
+                        <SkillPct $theme={theme}>{s.level}%</SkillPct>
+                      </SkillMeta>
+                      <ProgressTrack $theme={theme}>
+                        <ProgressFill $pct={s.level} $theme={theme} />
+                      </ProgressTrack>
+                    </SkillItem>
+                  ))}
+                </SkillRow>
+              </SkillCard>
+            ))}
+          </SkillsGrid>
+        </Section>
 
-      {/* ── Experience ── */}
-      <Section id="experience">
-        <SectionLabel>
-          <SectionNum $theme={theme}>03.</SectionNum>
-          <SectionTitle $theme={theme}>Where I've Worked</SectionTitle>
-          <SectionLine $theme={theme} />
-        </SectionLabel>
-        <Timeline $theme={theme}>
-          {(experience ?? []).map(exp => (
-            <TimelineItem key={exp.id} $theme={theme}>
-              <ExpCard $theme={theme}>
-                <ExpHeader>
-                  <ExpMeta>
-                    <ExpRole $theme={theme}>{exp.role}</ExpRole>
-                    <ExpCompany $theme={theme}>{exp.company}</ExpCompany>
-                  </ExpMeta>
-                  <ExpPeriod $theme={theme}>{exp.period}</ExpPeriod>
-                </ExpHeader>
-                <ExpDesc $theme={theme}>{exp.description}</ExpDesc>
+        {/* ── Experience ── */}
+        <Section id="experience">
+          <SectionLabel>
+            <SectionNum $theme={theme}>03.</SectionNum>
+            <SectionTitle $theme={theme}>Where I've Worked</SectionTitle>
+            <SectionLine $theme={theme} />
+          </SectionLabel>
+          <Timeline $theme={theme}>
+            {(experience ?? []).map(exp => (
+              <TimelineItem key={exp.id} $theme={theme}>
+                <ExpCard $theme={theme}>
+                  <ExpHeader>
+                    <ExpMeta>
+                      <ExpRole $theme={theme}>{exp.role}</ExpRole>
+                      <ExpCompany $theme={theme}>{exp.company}</ExpCompany>
+                    </ExpMeta>
+                    <ExpPeriod $theme={theme}>{exp.period}</ExpPeriod>
+                  </ExpHeader>
+                  <ExpDesc $theme={theme}>{exp.description}</ExpDesc>
+                  <AchList>
+                    {(exp.achievements ?? []).map((a, i) => (
+                      <AchItem key={i} $theme={theme}>{a}</AchItem>
+                    ))}
+                  </AchList>
+                  <TagRow>
+                    {(exp.tech ?? []).map(t => <Tag key={t} $theme={theme}>{t}</Tag>)}
+                  </TagRow>
+                </ExpCard>
+              </TimelineItem>
+            ))}
+          </Timeline>
+        </Section>
+
+        {/* ── Projects ── */}
+        <Section id="projects">
+          <SectionLabel>
+            <SectionNum $theme={theme}>04.</SectionNum>
+            <SectionTitle $theme={theme}>Things I've Built</SectionTitle>
+            <SectionLine $theme={theme} />
+          </SectionLabel>
+          <ProjectGrid>
+            {(projects ?? []).map(p => (
+              <ProjectCard key={p.id} $theme={theme}>
+                <ProjTopRow>
+                  <ProjFolderIcon $theme={theme}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                    </svg>
+                  </ProjFolderIcon>
+                  <ProjLinks $theme={theme}>
+                    {p.github && (
+                      <a href={p.github} target="_blank" rel="noopener noreferrer" aria-label={`GitHub repository for ${p.title}`}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                        </svg>
+                      </a>
+                    )}
+                  </ProjLinks>
+                </ProjTopRow>
+                <ProjStatus>{p.status}</ProjStatus>
+                <ProjTitle $theme={theme}>{p.title}</ProjTitle>
+                <ProjDesc $theme={theme}>{p.description}</ProjDesc>
                 <AchList>
-                  {(exp.achievements ?? []).map((a, i) => (
-                    <AchItem key={i} $theme={theme}>{a}</AchItem>
+                  {(p.highlights ?? []).map((h, i) => (
+                    <AchItem key={i} $theme={theme}>{h}</AchItem>
                   ))}
                 </AchList>
-                <TagRow>
-                  {(exp.tech ?? []).map(t => <Tag key={t} $theme={theme}>{t}</Tag>)}
+                <TagRow style={{ marginTop: 'auto' }}>
+                  {(p.tech ?? []).map(t => <Tag key={t} $theme={theme}>{t}</Tag>)}
                 </TagRow>
-              </ExpCard>
-            </TimelineItem>
-          ))}
-        </Timeline>
-      </Section>
-
-      {/* ── Projects ── */}
-      <Section id="projects">
-        <SectionLabel>
-          <SectionNum $theme={theme}>04.</SectionNum>
-          <SectionTitle $theme={theme}>Things I've Built</SectionTitle>
-          <SectionLine $theme={theme} />
-        </SectionLabel>
-        <ProjectGrid>
-          {(projects ?? []).map(p => (
-            <ProjectCard key={p.id} $theme={theme}>
-              <ProjTopRow>
-                <ProjFolderIcon $theme={theme}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-                  </svg>
-                </ProjFolderIcon>
-                <ProjLinks $theme={theme}>
-                  {p.github && (
-                    <a href={p.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                      </svg>
-                    </a>
-                  )}
-                </ProjLinks>
-              </ProjTopRow>
-              <ProjStatus>{p.status}</ProjStatus>
-              <ProjTitle $theme={theme}>{p.title}</ProjTitle>
-              <ProjDesc $theme={theme}>{p.description}</ProjDesc>
-              <AchList>
-                {(p.highlights ?? []).map((h, i) => (
-                  <AchItem key={i} $theme={theme}>{h}</AchItem>
-                ))}
-              </AchList>
-              <TagRow style={{ marginTop: 'auto' }}>
-                {(p.tech ?? []).map(t => <Tag key={t} $theme={theme}>{t}</Tag>)}
-              </TagRow>
-            </ProjectCard>
-          ))}
-        </ProjectGrid>
-      </Section>
-
-      {/* ── Education & Certifications ── */}
-      <Section id="education">
-        <SectionLabel>
-          <SectionNum $theme={theme}>05.</SectionNum>
-          <SectionTitle $theme={theme}>Education & Certifications</SectionTitle>
-          <SectionLine $theme={theme} />
-        </SectionLabel>
-        <EdCertGrid>
-          <PanelCard $theme={theme}>
-            <PanelTitle $theme={theme}>Education</PanelTitle>
-            {(education ?? []).map(edu => (
-              <ListEntry key={edu.id} $theme={theme}>
-                <EntryIcon $theme={theme}>🎓</EntryIcon>
-                <EntryContent>
-                  <EntryTitle $theme={theme}>{edu.degree}</EntryTitle>
-                  <EntrySub $theme={theme}>{edu.institution}</EntrySub>
-                  <EntryMeta $theme={theme}>{edu.period} · {edu.grade}</EntryMeta>
-                  {edu.description && (
-                    <EntryMeta $theme={theme} style={{ marginTop: 6, lineHeight: 1.5 }}>{edu.description}</EntryMeta>
-                  )}
-                </EntryContent>
-              </ListEntry>
+              </ProjectCard>
             ))}
-          </PanelCard>
-          <PanelCard $theme={theme}>
-            <PanelTitle $theme={theme}>Certifications & Achievements</PanelTitle>
-            {(certifications ?? []).map(cert => (
-              <ListEntry key={cert.id} $theme={theme}>
-                <EntryIcon $theme={theme}>{cert.icon}</EntryIcon>
-                <EntryContent>
-                  <EntryTitle $theme={theme}>{cert.title}</EntryTitle>
-                  <EntrySub $theme={theme}>{cert.issuer}</EntrySub>
-                  <EntryMeta $theme={theme}>{cert.year}</EntryMeta>
-                </EntryContent>
-              </ListEntry>
-            ))}
-          </PanelCard>
-        </EdCertGrid>
-      </Section>
+          </ProjectGrid>
+        </Section>
 
-      {/* ── Contact ── */}
-      <ContactSection id="contact">
-        <ContactEyebrow $theme={theme}>06. What's Next?</ContactEyebrow>
-        <ContactTitle $theme={theme}>Get In Touch</ContactTitle>
-        <ContactDesc $theme={theme}>
-          I'm actively looking for new opportunities as a <strong style={{ color: theme === 'light' ? '#4f46e5' : '#818cf8' }}>.NET Full Stack Developer</strong>. Whether you have a project in mind, a role to fill, or just want to say hello — my inbox is always open.
-        </ContactDesc>
-        <BtnPrimary
-          href={`mailto:${email}`}
-          style={{ display: 'inline-flex', margin: '0 auto' }}
-        >
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
-          Say Hello
-        </BtnPrimary>
-        <ContactLinks>
-          {email && (
-            <ContactLink href={`mailto:${email}`} $theme={theme}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
-              {email}
-            </ContactLink>
-          )}
-          {phone && (
-            <ContactLink href={`tel:${phone.replace(/\s+/g, '')}`} $theme={theme}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
-              {phone}
-            </ContactLink>
-          )}
-          {linkedin && (
-            <ContactLink href={linkedin} target="_blank" rel="noopener noreferrer" $theme={theme}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
-              linkedin.com/in/ihtishamzameer
-            </ContactLink>
-          )}
-        </ContactLinks>
-      </ContactSection>
+        {/* ── Education & Certifications ── */}
+        <Section id="education">
+          <SectionLabel>
+            <SectionNum $theme={theme}>05.</SectionNum>
+            <SectionTitle $theme={theme}>Education & Certifications</SectionTitle>
+            <SectionLine $theme={theme} />
+          </SectionLabel>
+          <EdCertGrid>
+            <PanelCard $theme={theme}>
+              <PanelTitle $theme={theme}>Education</PanelTitle>
+              {(education ?? []).map(edu => (
+                <ListEntry key={edu.id} $theme={theme}>
+                  <EntryIcon $theme={theme}>🎓</EntryIcon>
+                  <EntryContent>
+                    <EntryTitle $theme={theme}>{edu.degree}</EntryTitle>
+                    <EntrySub $theme={theme}>{edu.institution}</EntrySub>
+                    <EntryMeta $theme={theme}>{edu.period} · {edu.grade}</EntryMeta>
+                    {edu.description && (
+                      <EntryMeta $theme={theme} style={{ marginTop: 6, lineHeight: 1.5 }}>{edu.description}</EntryMeta>
+                    )}
+                  </EntryContent>
+                </ListEntry>
+              ))}
+            </PanelCard>
+            <PanelCard $theme={theme}>
+              <PanelTitle $theme={theme}>Certifications & Achievements</PanelTitle>
+              {(certifications ?? []).map(cert => (
+                <ListEntry key={cert.id} $theme={theme}>
+                  <EntryIcon $theme={theme}>{cert.icon}</EntryIcon>
+                  <EntryContent>
+                    <EntryTitle $theme={theme}>{cert.title}</EntryTitle>
+                    <EntrySub $theme={theme}>{cert.issuer}</EntrySub>
+                    <EntryMeta $theme={theme}>{cert.year}</EntryMeta>
+                  </EntryContent>
+                </ListEntry>
+              ))}
+            </PanelCard>
+          </EdCertGrid>
+        </Section>
+
+        {/* ── Contact ── */}
+        <ContactSection id="contact">
+          <ContactEyebrow $theme={theme}>06. What's Next?</ContactEyebrow>
+          <ContactTitle $theme={theme}>Get In Touch</ContactTitle>
+          <ContactDesc $theme={theme}>
+            I'm actively looking for new opportunities as a <strong style={{ color: theme === 'light' ? '#4f46e5' : '#818cf8' }}>.NET Full Stack Developer</strong>. Whether you have a project in mind, a role to fill, or just want to say hello — my inbox is always open.
+          </ContactDesc>
+          <BtnPrimary
+            href={`mailto:${email}`}
+            style={{ display: 'inline-flex', margin: '0 auto' }}
+            aria-label="Send Email to Ihtisham Zameer"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+            Say Hello
+          </BtnPrimary>
+          <ContactLinks>
+            {email && (
+              <ContactLink href={`mailto:${email}`} $theme={theme} aria-label="Email Address">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+                {email}
+              </ContactLink>
+            )}
+            {phone && (
+              <ContactLink href={`tel:${phone.replace(/\s+/g, '')}`} $theme={theme} aria-label="Phone Number">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+                {phone}
+              </ContactLink>
+            )}
+            {linkedin && (
+              <ContactLink href={linkedin} target="_blank" rel="noopener noreferrer" $theme={theme} aria-label="LinkedIn Profile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
+                linkedin.com/in/ihtishamzameer
+              </ContactLink>
+            )}
+          </ContactLinks>
+        </ContactSection>
+      </main>
 
       <Footer $theme={theme}>
         Designed & built by <span style={{ color: theme === 'light' ? '#4f46e5' : '#818cf8', fontWeight: 600 }}>{name}</span> · {new Date().getFullYear()}
