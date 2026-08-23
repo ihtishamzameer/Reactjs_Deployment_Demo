@@ -5,6 +5,7 @@ import { store } from './store/store'
 import GlobalStyle from './styles/GlobalStyle'
 import { AppThemeProvider } from './styles/ThemeContext'
 import AppRouter from './routes/AppRouter'
+import { Analytics } from '@vercel/analytics/react'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -12,6 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <AppThemeProvider>
         <GlobalStyle />
         <AppRouter />
+        <Analytics />
       </AppThemeProvider>
     </Provider>
   </React.StrictMode>
