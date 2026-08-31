@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import styled, { keyframes, css } from 'styled-components'
 import { navLinks } from '../../data/portfolioData'
+import ChatWidget from './ChatWidget'
 
 const slideDown = keyframes`
   from { transform: translateY(-100%); opacity: 0; }
@@ -285,7 +286,8 @@ function PortfolioNav({ theme = 'dark', toggleTheme }) {
   const isDark = theme === 'dark'
 
   return (
-    <header>
+    <>
+      <header>
       <Nav $scrolled={scrolled} $theme={theme} aria-label="Main Navigation">
         <Logo to="/" $theme={theme} aria-label="Ihtisham Zameer Portfolio Home">
           IZ<span>.</span>
@@ -361,6 +363,8 @@ function PortfolioNav({ theme = 'dark', toggleTheme }) {
         ))}
       </MobileMenu>
     </header>
+    <ChatWidget theme={theme} />
+    </>
   )
 }
 
