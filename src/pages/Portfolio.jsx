@@ -833,6 +833,45 @@ const ProjDesc = styled.p`
   flex-grow: 1;
 `
 
+const ProjImageContainer = styled.div`
+  width: 100%;
+  height: 220px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  gap: 12px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  border: 1px solid ${({ $theme }) => ($theme === 'light' ? 'rgba(99, 102, 241, 0.1)' : 'rgba(129, 140, 248, 0.1)')};
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${({ $theme }) => ($theme === 'light' ? '#cbd5e1' : '#334155')};
+    border-radius: 4px;
+  }
+  
+  &:hover::-webkit-scrollbar-thumb {
+    background: ${({ $theme }) => ($theme === 'light' ? '#94a3b8' : '#475569')};
+  }
+`
+
+const ProjImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border-radius: 12px;
+  scroll-snap-align: center;
+  background: ${({ $theme }) => ($theme === 'light' ? '#f1f5f9' : '#1e293b')};
+`
+
 // ─── Education & Certifications Section ───────────────────────────────────────
 const EdCertGrid = styled.div`
   display: grid;
@@ -1257,6 +1296,17 @@ export default function Portfolio() {
                     )}
                   </ProjLinks>
                 </ProjTopRow>
+                
+                <ProjImageContainer $theme={theme}>
+                  {p.images && p.images.length > 0 ? (
+                    p.images.map((img, idx) => (
+                      <ProjImg key={idx} src={img} alt={`${p.title} screenshot ${idx + 1}`} loading="lazy" $theme={theme} />
+                    ))
+                  ) : (
+                    <ProjImg src="/project-placeholder.webp" onError={(e) => { e.target.src = 'https://placehold.co/600x400/1e293b/818cf8?text=Project+Preview' }} alt={`${p.title} preview`} loading="lazy" $theme={theme} />
+                  )}
+                </ProjImageContainer>
+
                 <ProjStatus>{p.status}</ProjStatus>
                 <ProjTitle $theme={theme}>{p.title}</ProjTitle>
                 <ProjDesc $theme={theme}>{p.description}</ProjDesc>

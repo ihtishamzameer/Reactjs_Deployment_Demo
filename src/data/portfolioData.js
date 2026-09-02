@@ -106,6 +106,12 @@ export const projects = [
       'MudBlazor',
       'Telerik Reporting',
     ],
+    images: [
+      '/smartcorp-1.png',
+      '/smartcorp-2.png',
+      '/smartcorp-3.png',
+      '/smartcorp-4.png'
+    ],
     github: 'https://github.com/ihtishamzameer',
     live: null,
     status: 'Enterprise HR Platform',
