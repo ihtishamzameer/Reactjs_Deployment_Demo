@@ -179,11 +179,11 @@ export const projects = [
     title: 'Plagiarism Checker System',
     subtitle: 'AI-Powered NLP Document Similarity & Plagiarism Detection Engine',
     description:
-      'An AI-powered plagiarism detection web application architected by Ihtisham Zameer using ASP.NET Core Web API, React.js, and Sentence Transformers for semantic similarity scoring.',
-    tech: ['ASP.NET Core Web API', 'React.js', 'NLP', 'Python', 'SQL Server'],
+      'An AI-powered plagiarism detection web application architected by Ihtisham Zameer using Flask API, React.js, and Sentence Transformers for semantic similarity scoring.',
+    tech: ['Flask API', 'React.js', 'NLP', 'Python', 'SQL Server'],
     github: 'https://github.com/ihtishamzameer',
     live: null,
-    status: 'Final Year Project',
+    status: 'Final Year Project', 
     featured: true,
     highlights: [
       'Built as a 3-member team final year project',
@@ -194,7 +194,7 @@ export const projects = [
       problem: 'Academic institutions needed an automated tool capable of checking student submissions not only for exact text matches, but also for semantic rephrasing and structural similarity.',
       role: 'Backend Architect & Full Stack Developer',
       techStackDetails: [
-        { name: 'ASP.NET Core Web API', usage: 'Core microservices backend managing user roles, submission queues, and reports' },
+        { name: 'Flask API', usage: 'Core microservices backend managing user roles, submission queues, and reports' },
         { name: 'Python & Sentence Transformers', usage: 'Vector embedding generation and cosine similarity calculation' },
         { name: 'React.js Frontend', usage: 'Interactive UI with visual heatmap highlight of flagged text sections' },
         { name: 'SQL Server', usage: 'Indexing document embeddings and metadata storage' },
@@ -383,7 +383,7 @@ export const education = [
     institution: 'Pir Mehr Ali Shah Arid Agriculture University, Rawalpindi',
     period: 'Jun 2021 – Jun 2025',
     description:
-      'Final Year Project: Plagiarism Checker System (ASP.NET Core Web API + React.js).',
+      'Final Year Project: Plagiarism Checker System (Flask API + React.js).',
     grade: 'Completed',
   },
 ]
