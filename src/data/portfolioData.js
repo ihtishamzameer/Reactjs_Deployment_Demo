@@ -23,7 +23,7 @@ export const personalInfo = {
   resumeUrl: '/Ihtisham_Zameer_Resume (1).pdf',
 }
 
-export const aboutText = `I am Ihtisham Zameer, a dedicated .NET Full Stack Developer based in Rawalpindi, Pakistan with over 2 years of professional experience designing, building, and shipping high-performance enterprise web applications. My expertise spans the complete full-stack development lifecycle, leveraging ASP.NET Core, C#, and SQL Server on the backend along with dynamic React.js on the frontend.
+export const aboutText = `I am Ihtisham Zameer, a dedicated .NET Full Stack Developer based in Rawalpindi, Pakistan with over 1.5 years of professional experience designing, building, and shipping high-performance enterprise web applications. My expertise spans the complete full-stack development lifecycle, leveraging ASP.NET Core, C#, and SQL Server on the backend along with dynamic React.js on the frontend.
 
 Promoted from Intern to Junior .NET Developer within 6 months for strong delivery on a company-wide HRM platform built on Clean Architecture and MediatR (CQRS), I specialize in RESTful API design, Entity Framework Core, automated reporting, and secure database architecture. As a .NET Full Stack Developer, Ihtisham Zameer is passionate about translating complex business requirements into scalable, maintainable software solutions.`
 
