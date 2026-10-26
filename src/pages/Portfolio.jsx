@@ -1189,7 +1189,7 @@ export default function Portfolio() {
             </AboutText>
             <AboutStats>
               <StatCard $theme={theme}>
-                <StatNum $theme={theme}>2+</StatNum>
+                <StatNum $theme={theme}>1.5+</StatNum>
                 <StatLabel $theme={theme}>Years of Experience</StatLabel>
               </StatCard>
               <StatCard $theme={theme}>
