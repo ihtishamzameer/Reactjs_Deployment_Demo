@@ -72,7 +72,7 @@ export const experience = [
     id: 1,
     role: '.NET Full Stack Developer',
     company: 'TechtaGone Technologies — Islamabad, Pakistan',
-    period: 'Aug 2024 – Apr 2026',
+    period: 'Feb 2025 – Apr 2026',
     type: 'Full-Time (Intern → Junior → Full Stack)',
     description:
       'Progressed from Intern to full .NET Full Stack Developer in 6 months, owning end-to-end module delivery for an enterprise HR platform used by 150+ employees.',
