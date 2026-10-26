@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="aiBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070a0f"/>
+      <stop offset="50%" stop-color="#0c1825"/>
+      <stop offset="100%" stop-color="#06131c"/>
+    </linearGradient>
+    <linearGradient id="aiGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <pattern id="aiGrid" width="26" height="26" patternUnits="userSpaceOnUse">
+      <path d="M 26 0 L 0 0 0 26" fill="none" stroke="rgba(6, 182, 212, 0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="480" fill="url(#aiBg)"/>
+  <rect width="800" height="480" fill="url(#aiGrid)"/>
+
+  <!-- Window Frame -->
+  <rect x="40" y="35" width="720" height="410" rx="14" fill="#0b121c" stroke="rgba(30, 48, 70, 0.8)" stroke-width="1.5"/>
+  <rect x="40" y="35" width="720" height="44" rx="14" fill="#131c2a"/>
+  <circle cx="68" cy="57" r="5" fill="#ef4444" opacity="0.8"/>
+  <circle cx="86" cy="57" r="5" fill="#f59e0b" opacity="0.8"/>
+  <circle cx="104" cy="57" r="5" fill="#10b981" opacity="0.8"/>
+  <text x="400" y="61" fill="#64748b" font-family="sans-serif" font-size="11" text-anchor="middle">nlp-plagiarism-checker.local/reports/analysis-view</text>
+
+  <!-- Top Title Bar -->
+  <text x="70" y="115" fill="#f8fafc" font-family="sans-serif" font-size="20" font-weight="800">Plagiarism Detection &amp; Semantic Similarity Engine</text>
+  <text x="70" y="135" fill="#94a3b8" font-family="sans-serif" font-size="12">Sentence Transformers NLP · Flask API &amp; React.js · Capstone Project</text>
+
+  <!-- Split Comparison Panels -->
+  <!-- Document 1: Submission -->
+  <rect x="70" y="155" width="310" height="260" rx="8" fill="#0e1724" stroke="rgba(30,48,70,0.7)"/>
+  <rect x="70" y="155" width="310" height="32" rx="8" fill="#152132"/>
+  <text x="85" y="176" fill="#94a3b8" font-family="sans-serif" font-size="11" font-weight="600">INPUT DOCUMENT (SUBMITTED)</text>
+
+  <text x="85" y="210" fill="#cbd5e1" font-family="sans-serif" font-size="11">Clean Architecture provides separation of</text>
+  <rect x="85" y="217" width="280" height="18" fill="rgba(244, 63, 94, 0.25)" rx="3"/>
+  <text x="90" y="230" fill="#f87171" font-family="sans-serif" font-size="11">concerns through decoupled software layers,</text>
+  <text x="85" y="250" fill="#cbd5e1" font-family="sans-serif" font-size="11">enabling decoupled command execution with</text>
+  <rect x="85" y="257" width="280" height="18" fill="rgba(16, 185, 129, 0.25)" rx="3"/>
+  <text x="90" y="270" fill="#34d399" font-family="sans-serif" font-size="11">MediatR query pipelines and SQL schema.</text>
+
+  <text x="85" y="310" fill="#94a3b8" font-family="sans-serif" font-size="11">Cosine Similarity Vector Match:</text>
+  <rect x="85" y="325" width="280" height="8" rx="4" fill="#1b2738"/>
+  <rect x="85" y="325" width="240" height="8" rx="4" fill="url(#aiGrad)"/>
+  <text x="85" y="350" fill="#10b981" font-family="sans-serif" font-size="12" font-weight="700">86.4% Semantic Overlap Flagged</text>
+
+  <!-- Document 2: Corpus Match -->
+  <rect x="400" y="155" width="330" height="260" rx="8" fill="#0e1724" stroke="rgba(30,48,70,0.7)"/>
+  <rect x="400" y="155" width="330" height="32" rx="8" fill="#152132"/>
+  <text x="415" y="176" fill="#94a3b8" font-family="sans-serif" font-size="11" font-weight="600">CORPUS / SOURCE DATABASE</text>
+
+  <!-- Metric Badges in Corpus -->
+  <rect x="415" y="200" width="145" height="45" rx="6" fill="#131d2c"/>
+  <text x="425" y="218" fill="#94a3b8" font-family="sans-serif" font-size="9">EMBEDDING MODEL</text>
+  <text x="425" y="234" fill="#06b6d4" font-family="sans-serif" font-size="12" font-weight="700">all-MiniLM-L6-v2</text>
+
+  <rect x="570" y="200" width="145" height="45" rx="6" fill="#131d2c"/>
+  <text x="580" y="218" fill="#94a3b8" font-family="sans-serif" font-size="9">SCAN DURATION</text>
+  <text x="580" y="234" fill="#10b981" font-family="sans-serif" font-size="12" font-weight="700">0.24 seconds</text>
+
+  <!-- Architecture summary box -->
+  <rect x="415" y="260" width="300" height="135" rx="6" fill="#121d2d" stroke="rgba(30,48,70,0.8)"/>
+  <text x="430" y="285" fill="#f1f5f9" font-family="sans-serif" font-size="12" font-weight="700">Multi-Tier Tech Stack</text>
+  
+  <text x="430" y="310" fill="#94a3b8" font-family="sans-serif" font-size="11">● Backend: Flask REST API / Python</text>
+  <text x="430" y="330" fill="#94a3b8" font-family="sans-serif" font-size="11">● AI Engine: Sentence Transformers</text>
+  <text x="430" y="350" fill="#94a3b8" font-family="sans-serif" font-size="11">● Client: React 19 Interactive Visualizer</text>
+  <text x="430" y="370" fill="#10b981" font-family="sans-serif" font-size="11" font-weight="600">● Status: Capstone Project Completed</text>
+</svg>

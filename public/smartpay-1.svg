@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="payBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070a0f"/>
+      <stop offset="50%" stop-color="#0d1822"/>
+      <stop offset="100%" stop-color="#081017"/>
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <pattern id="payGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(16, 185, 129, 0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="480" fill="url(#payBg)"/>
+  <rect width="800" height="480" fill="url(#payGrid)"/>
+
+  <!-- Window Frame -->
+  <rect x="40" y="35" width="720" height="410" rx="14" fill="#0b121b" stroke="rgba(30, 48, 70, 0.8)" stroke-width="1.5"/>
+  <rect x="40" y="35" width="720" height="44" rx="14" fill="#121b27"/>
+  <circle cx="68" cy="57" r="5" fill="#ef4444" opacity="0.8"/>
+  <circle cx="86" cy="57" r="5" fill="#f59e0b" opacity="0.8"/>
+  <circle cx="104" cy="57" r="5" fill="#10b981" opacity="0.8"/>
+  <text x="400" y="61" fill="#64748b" font-family="sans-serif" font-size="11" text-anchor="middle">api.smartpay.internal/v1/validation-pipeline</text>
+
+  <!-- Title Badge -->
+  <rect x="70" y="105" width="130" height="24" rx="12" fill="rgba(16,185,129,0.15)" stroke="#10b981" stroke-width="1"/>
+  <text x="135" y="121" fill="#10b981" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">ASP.NET Core Engine</text>
+
+  <text x="70" y="160" fill="#f8fafc" font-family="sans-serif" font-size="24" font-weight="800">SmartPay Validation &amp; Calculation Pipeline</text>
+  <text x="70" y="182" fill="#94a3b8" font-family="sans-serif" font-size="12">FluentValidation rules · Transactional SQL Server execution · Zero data entry discrepancies</text>
+
+  <!-- Left: Code & Pipeline Simulation Box -->
+  <rect x="70" y="205" width="370" height="215" rx="8" fill="#0e1724" stroke="rgba(30,48,70,0.7)"/>
+  
+  <rect x="70" y="205" width="370" height="30" rx="8" fill="#141f30"/>
+  <text x="85" y="225" fill="#94a3b8" font-family="Courier New, monospace" font-size="11">PayrollValidationBehavior.cs</text>
+  
+  <text x="85" y="255" fill="#06b6d4" font-family="Courier New, monospace" font-size="11">// ASP.NET Core FluentValidation Filter</text>
+  <text x="85" y="275" fill="#10b981" font-family="Courier New, monospace" font-size="11">public class</text>
+  <text x="180" y="275" fill="#f1f5f9" font-family="Courier New, monospace" font-size="11">PayrollValidator : AbstractValidator</text>
+  <text x="85" y="295" fill="#f1f5f9" font-family="Courier New, monospace" font-size="11">{</text>
+  <text x="105" y="315" fill="#e2e8f0" font-family="Courier New, monospace" font-size="11">RuleFor(x =&gt; x.GrossAmount).GreaterThan(0);</text>
+  <text x="105" y="335" fill="#e2e8f0" font-family="Courier New, monospace" font-size="11">RuleFor(x =&gt; x.CsvUpload).NotNull();</text>
+  <text x="105" y="355" fill="#e2e8f0" font-family="Courier New, monospace" font-size="11">RuleFor(x =&gt; x.TaxDeduction).InclusiveBetween(0, 45);</text>
+  <text x="105" y="375" fill="#34d399" font-family="Courier New, monospace" font-size="11">// Atomic commit with EF Core</text>
+  <text x="85" y="395" fill="#f1f5f9" font-family="Courier New, monospace" font-size="11">}</text>
+
+  <!-- Right: Metrics & Results Box -->
+  <rect x="460" y="205" width="270" height="215" rx="8" fill="#0e1724" stroke="rgba(30,48,70,0.7)"/>
+  <text x="480" y="235" fill="#f8fafc" font-family="sans-serif" font-size="14" font-weight="700">Production Metrics</text>
+
+  <rect x="480" y="250" width="230" height="42" rx="6" fill="#121c2c"/>
+  <text x="495" y="268" fill="#94a3b8" font-family="sans-serif" font-size="10">BUGS RESOLVED</text>
+  <text x="495" y="284" fill="#10b981" font-family="sans-serif" font-size="14" font-weight="800">20+ Bugs Fixed</text>
+
+  <rect x="480" y="302" width="230" height="42" rx="6" fill="#121c2c"/>
+  <text x="495" y="320" fill="#94a3b8" font-family="sans-serif" font-size="10">VALIDATION ACCURACY</text>
+  <text x="495" y="336" fill="#06b6d4" font-family="sans-serif" font-size="14" font-weight="800">100% Deterministic</text>
+
+  <rect x="480" y="354" width="230" height="48" rx="6" fill="rgba(16,185,129,0.1)" stroke="rgba(16,185,129,0.3)"/>
+  <text x="495" y="372" fill="#10b981" font-family="sans-serif" font-size="10" font-weight="700">CAREER IMPACT</text>
+  <text x="495" y="390" fill="#f1f5f9" font-family="sans-serif" font-size="11" font-weight="600">Promoted to Jr .NET Dev within 6 mo</text>
+</svg>

@@ -107,10 +107,8 @@ export const projects = [
       'Telerik Reporting',
     ],
     images: [
-      '/smartcorp-1.png',
-      '/smartcorp-2.png',
-      '/smartcorp-3.png',
-      '/smartcorp-4.png'
+      '/projects/smartcorp-hrm/1.png',
+      '/projects/smartcorp-hrm/2.png',
     ],
     github: 'https://github.com/ihtishamzameer',
     live: null,
@@ -149,6 +147,10 @@ export const projects = [
     description:
       'Core payroll engine developed by Ihtisham Zameer for enterprise HR systems, incorporating robust validation pipelines in ASP.NET Core and SQL Server to eliminate data-entry errors.',
     tech: ['ASP.NET Core', 'C#', 'Entity Framework Core', 'SQL Server'],
+    images: [
+      '/projects/smartpay/1.png',
+      '/projects/smartpay/2.png',
+    ],
     github: 'https://github.com/ihtishamzameer',
     live: null,
     status: 'Internship Project',
@@ -181,6 +183,10 @@ export const projects = [
     description:
       'An AI-powered plagiarism detection web application architected by Ihtisham Zameer using Flask API, React.js, and Sentence Transformers for semantic similarity scoring.',
     tech: ['Flask API', 'React.js', 'NLP', 'Python', 'SQL Server'],
+    images: [
+      '/projects/plagiarism-checker/1.png',
+      '/projects/plagiarism-checker/2.png',
+    ],
     github: 'https://github.com/ihtishamzameer',
     live: null,
     status: 'Final Year Project', 

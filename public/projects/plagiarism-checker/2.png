@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070a0f"/>
+      <stop offset="50%" stop-color="#0f1724"/>
+      <stop offset="100%" stop-color="#09141f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(16, 185, 129, 0.05)" stroke-width="1"/>
+    </pattern>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <rect width="800" height="480" fill="url(#grid)"/>
+
+  <!-- Glow highlights -->
+  <circle cx="700" cy="80" r="140" fill="#10b981" opacity="0.08" filter="url(#glow)"/>
+  <circle cx="120" cy="380" r="160" fill="#06b6d4" opacity="0.06" filter="url(#glow)"/>
+
+  <!-- Window Mockup Frame -->
+  <rect x="40" y="35" width="720" height="410" rx="14" fill="#0c131f" stroke="rgba(30, 48, 70, 0.8)" stroke-width="1.5"/>
+  
+  <!-- Window Header -->
+  <rect x="40" y="35" width="720" height="44" rx="14" fill="#131c2d"/>
+  <rect x="40" y="65" width="720" height="14" fill="#131c2d"/>
+  <circle cx="68" cy="57" r="5" fill="#ef4444" opacity="0.8"/>
+  <circle cx="86" cy="57" r="5" fill="#f59e0b" opacity="0.8"/>
+  <circle cx="104" cy="57" r="5" fill="#10b981" opacity="0.8"/>
+  
+  <!-- Window Title / URL -->
+  <rect x="230" y="47" width="340" height="20" rx="6" fill="#0b111a"/>
+  <text x="400" y="61" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" text-anchor="middle">smartcorp-hrm.internal.enterprise/dashboard</text>
+
+  <!-- Sidebar Mockup -->
+  <rect x="40" y="79" width="160" height="366" fill="#090e17"/>
+  <rect x="60" y="105" width="22" height="22" rx="6" fill="url(#accent)"/>
+  <text x="92" y="120" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="13" font-weight="700">SmartCorp</text>
+
+  <!-- Sidebar Nav items -->
+  <rect x="52" y="150" width="136" height="30" rx="6" fill="rgba(16, 185, 129, 0.15)"/>
+  <rect x="62" y="160" width="10" height="10" rx="2" fill="#10b981"/>
+  <text x="82" y="170" fill="#10b981" font-family="sans-serif" font-size="11" font-weight="600">Overview</text>
+
+  <rect x="62" y="196" width="10" height="10" rx="2" fill="#64748b"/>
+  <text x="82" y="205" fill="#94a3b8" font-family="sans-serif" font-size="11">Employees (150+)</text>
+
+  <rect x="62" y="232" width="10" height="10" rx="2" fill="#64748b"/>
+  <text x="82" y="241" fill="#94a3b8" font-family="sans-serif" font-size="11">Attendance Live</text>
+
+  <rect x="62" y="268" width="10" height="10" rx="2" fill="#64748b"/>
+  <text x="82" y="277" fill="#94a3b8" font-family="sans-serif" font-size="11">Leave Mgmt</text>
+
+  <rect x="62" y="304" width="10" height="10" rx="2" fill="#64748b"/>
+  <text x="82" y="313" fill="#94a3b8" font-family="sans-serif" font-size="11">Payroll &amp; Reports</text>
+
+  <rect x="62" y="340" width="10" height="10" rx="2" fill="#64748b"/>
+  <text x="82" y="349" fill="#94a3b8" font-family="sans-serif" font-size="11">MyWall Social</text>
+
+  <!-- Main Content Area -->
+  <!-- Top Stat Cards -->
+  <rect x="220" y="100" width="165" height="74" rx="8" fill="#111927" stroke="rgba(30,48,70,0.6)"/>
+  <text x="235" y="122" fill="#94a3b8" font-family="sans-serif" font-size="10">ACTIVE WORKFORCE</text>
+  <text x="235" y="152" fill="#f8fafc" font-family="sans-serif" font-size="22" font-weight="800">158 Staff</text>
+  <text x="345" y="152" fill="#10b981" font-family="sans-serif" font-size="10" font-weight="700">+12%</text>
+
+  <rect x="398" y="100" width="165" height="74" rx="8" fill="#111927" stroke="rgba(30,48,70,0.6)"/>
+  <text x="413" y="122" fill="#94a3b8" font-family="sans-serif" font-size="10">PUNCH-IN RATE TODAY</text>
+  <text x="413" y="152" fill="#f8fafc" font-family="sans-serif" font-size="22" font-weight="800">98.4%</text>
+  <text x="525" y="152" fill="#10b981" font-family="sans-serif" font-size="10" font-weight="700">⚡ Live</text>
+
+  <rect x="576" y="100" width="164" height="74" rx="8" fill="#111927" stroke="rgba(30,48,70,0.6)"/>
+  <text x="591" y="122" fill="#94a3b8" font-family="sans-serif" font-size="10">CLEAN ARCH PIPELINE</text>
+  <text x="591" y="152" fill="#06b6d4" font-family="sans-serif" font-size="18" font-weight="800">CQRS Active</text>
+
+  <!-- Big Chart & Table Container -->
+  <rect x="220" y="190" width="343" height="235" rx="8" fill="#111927" stroke="rgba(30,48,70,0.6)"/>
+  <text x="235" y="215" fill="#f1f5f9" font-family="sans-serif" font-size="12" font-weight="700">Attendance &amp; Check-In Stream</text>
+  <text x="510" y="215" fill="#10b981" font-family="sans-serif" font-size="10">● Realtime</text>
+
+  <!-- Chart lines -->
+  <polyline points="235,390 280,340 330,360 380,290 430,310 480,260 535,280" fill="none" stroke="#10b981" stroke-width="2.5"/>
+  <polygon points="235,390 280,340 330,360 380,290 430,310 480,260 535,280 535,405 235,405" fill="rgba(16, 185, 129, 0.08)"/>
+
+  <!-- Right Module Box: MediatR & CQRS Module -->
+  <rect x="576" y="190" width="164" height="235" rx="8" fill="#111927" stroke="rgba(30,48,70,0.6)"/>
+  <text x="591" y="215" fill="#f1f5f9" font-family="sans-serif" font-size="12" font-weight="700">Core Modules</text>
+
+  <rect x="591" y="235" width="134" height="38" rx="6" fill="#0a1019"/>
+  <text x="601" y="252" fill="#e2e8f0" font-family="sans-serif" font-size="10" font-weight="600">Employee Module</text>
+  <text x="601" y="265" fill="#10b981" font-family="sans-serif" font-size="9">ASP.NET Core / MediatR</text>
+
+  <rect x="591" y="281" width="134" height="38" rx="6" fill="#0a1019"/>
+  <text x="601" y="298" fill="#e2e8f0" font-family="sans-serif" font-size="10" font-weight="600">Payroll Calculation</text>
+  <text x="601" y="311" fill="#06b6d4" font-family="sans-serif" font-size="9">Telerik Automated</text>
+
+  <rect x="591" y="327" width="134" height="38" rx="6" fill="#0a1019"/>
+  <text x="601" y="344" fill="#e2e8f0" font-family="sans-serif" font-size="10" font-weight="600">MyWall Social Hub</text>
+  <text x="601" y="357" fill="#a78bfa" font-family="sans-serif" font-size="9">+20% Engagement</text>
+
+  <rect x="591" y="373" width="134" height="38" rx="6" fill="#0a1019"/>
+  <text x="601" y="390" fill="#e2e8f0" font-family="sans-serif" font-size="10" font-weight="600">Database &amp; EF Core</text>
+  <text x="601" y="403" fill="#34d399" font-family="sans-serif" font-size="9">40+ Schema Migrations</text>
+
+  <!-- Clean Architecture Badge -->
+  <rect x="560" y="44" width="180" height="26" rx="13" fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" stroke-width="1"/>
+  <text x="650" y="61" fill="#10b981" font-family="sans-serif" font-size="10" font-weight="700" text-anchor="middle">⚡ ASP.NET Core 8 &amp; MediatR</text>
+</svg>

@@ -1300,10 +1300,25 @@ export default function Portfolio() {
                 <ProjImageContainer $theme={theme}>
                   {p.images && p.images.length > 0 ? (
                     p.images.map((img, idx) => (
-                      <ProjImg key={idx} src={img} alt={`${p.title} screenshot ${idx + 1}`} loading="lazy" $theme={theme} />
+                      <ProjImg 
+                        key={idx} 
+                        src={img} 
+                        alt={`${p.title} screenshot ${idx + 1}`} 
+                        loading="lazy" 
+                        $theme={theme}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = `https://placehold.co/600x400/0f172a/10b981?text=${encodeURIComponent(p.title)}`;
+                        }}
+                      />
                     ))
                   ) : (
-                    <ProjImg src="/project-placeholder.webp" onError={(e) => { e.target.src = 'https://placehold.co/600x400/1e293b/818cf8?text=Project+Preview' }} alt={`${p.title} preview`} loading="lazy" $theme={theme} />
+                    <ProjImg 
+                      src={`https://placehold.co/600x400/0f172a/10b981?text=${encodeURIComponent(p.title)}`} 
+                      alt={`${p.title} preview`} 
+                      loading="lazy" 
+                      $theme={theme} 
+                    />
                   )}
                 </ProjImageContainer>
 
